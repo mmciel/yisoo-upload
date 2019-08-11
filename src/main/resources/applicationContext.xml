@@ -25,8 +25,8 @@
     <!--    整合mybatis-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 指定mybatis全局配置文件的位置 -->
-        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
         <!-- 指定mybatis，mapper文件的位置 -->
 <!--        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>-->
     </bean>
@@ -34,7 +34,7 @@
 
     <!--    配置扫描器-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.atguigu.dao"/>
+        <property name="basePackage" value="com.yisoo.dao"/>
     </bean>
 
     <!--    配置批量执行的sqlSession-->
@@ -44,7 +44,11 @@
         <constructor-arg name="executorType" value="BATCH"/>
 
     </bean>
-
+    <!--    配置文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="5242440"></property>
+    </bean>
 
     <!--    事务控制-->
     <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
