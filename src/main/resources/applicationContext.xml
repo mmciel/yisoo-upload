@@ -27,8 +27,8 @@
         <!-- 指定mybatis全局配置文件的位置 -->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="dataSource" ref="dataSource"/>
-        <!-- 指定mybatis，mapper文件的位置 -->
-<!--        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>-->
+<!--         指定mybatis，mapper文件的位置 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"></property>
     </bean>
 
 
@@ -45,9 +45,18 @@
 
     </bean>
     <!--    配置文件上传-->
+    <!-- 定义文件上传解析器 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="defaultEncoding" value="utf-8"></property>
-        <property name="maxUploadSize" value="5242440"></property>
+        <!-- 设定默认编码 -->
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- 设定文件上传的最大值为5MB，5*1024*1024 -->
+        <property name="maxUploadSize" value="104857600"/>
+        <!-- 设定文件上传时写入内存的最大值，如果小于这个参数不会生成临时文件，默认为10240 -->
+        <property name="maxInMemorySize" value="40960"/>
+        <!-- 上传文件的临时路径 -->
+        <property name="uploadTempDir" value="air-warehouse/temp"/>
+        <!-- 延迟文件解析 -->
+        <property name="resolveLazily" value="true"/>
     </bean>
 
     <!--    事务控制-->

@@ -1,6 +1,6 @@
 package com.yisoo.bean;
 
-public class UplaodMsg {
+public class UploadMsg {
 //    文件唯一id
     private int id;
 //    上传状态
@@ -10,15 +10,15 @@ public class UplaodMsg {
 //    url
     private String url;
 
-   public static UplaodMsg success(){
-       UplaodMsg uplaodMsg = new UplaodMsg();
-       uplaodMsg.setResult("success");
-       return uplaodMsg;
+   public static UploadMsg success(){
+       UploadMsg uploadMsg = new UploadMsg();
+       uploadMsg.setResult("success");
+       return uploadMsg;
    }
-    public static UplaodMsg fail(){
-       UplaodMsg uplaodMsg = new UplaodMsg();
-       uplaodMsg.setResult("failed");
-       return uplaodMsg;
+    public static UploadMsg fail(){
+       UploadMsg uploadMsg = new UploadMsg();
+       uploadMsg.setResult("failed");
+       return uploadMsg;
     }
     public int getId() {
         return id;

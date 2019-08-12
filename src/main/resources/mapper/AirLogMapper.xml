@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisoo.dao.AirLogMapper">
+  <resultMap id="BaseResultMap" type="com.yisoo.bean.AirLog">
+    <result column="air_id" jdbcType="INTEGER" property="airId" />
+    <result column="air_adress" jdbcType="VARCHAR" property="airAdress" />
+    <result column="air_time" jdbcType="TIMESTAMP" property="airTime" />
+    <result column="air_flag" jdbcType="VARCHAR" property="airFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    air_id, air_adress, air_time, air_flag
+  </sql>
+  <select id="selectByExample" parameterType="com.yisoo.bean.AirLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from air_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yisoo.bean.AirLogExample">
+    delete from air_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisoo.bean.AirLog">
+    insert into air_log (air_id, air_adress, air_time, 
+      air_flag)
+    values (#{airId,jdbcType=INTEGER}, #{airAdress,jdbcType=VARCHAR}, #{airTime,jdbcType=TIMESTAMP}, 
+      #{airFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisoo.bean.AirLog">
+    insert into air_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="airId != null">
+        air_id,
+      </if>
+      <if test="airAdress != null">
+        air_adress,
+      </if>
+      <if test="airTime != null">
+        air_time,
+      </if>
+      <if test="airFlag != null">
+        air_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="airId != null">
+        #{airId,jdbcType=INTEGER},
+      </if>
+      <if test="airAdress != null">
+        #{airAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="airTime != null">
+        #{airTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="airFlag != null">
+        #{airFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisoo.bean.AirLogExample" resultType="java.lang.Long">
+    select count(*) from air_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update air_log
+    <set>
+      <if test="record.airId != null">
+        air_id = #{record.airId,jdbcType=INTEGER},
+      </if>
+      <if test="record.airAdress != null">
+        air_adress = #{record.airAdress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airTime != null">
+        air_time = #{record.airTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.airFlag != null">
+        air_flag = #{record.airFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update air_log
+    set air_id = #{record.airId,jdbcType=INTEGER},
+      air_adress = #{record.airAdress,jdbcType=VARCHAR},
+      air_time = #{record.airTime,jdbcType=TIMESTAMP},
+      air_flag = #{record.airFlag,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
