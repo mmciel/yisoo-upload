@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="${APP_PATH }/css/home.css">
     <!--	js动画加载-->
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <!--    引入buttons -->
+    <link rel="stylesheet" href="https://www.bootcss.com/p/buttons/css/buttons.css">
     <!-- 	自定义样式 -->
     <link href="${APP_PATH}/css/style.css" rel="stylesheet">
 </head>
@@ -59,9 +61,11 @@
                             <li><a href="your/nice/url">关于</a></li>
                         </ul>
                         <!-- 右侧的导航项目 -->
-                        <!-- <ul class="nav navbar-nav nav-pills navbar-right">
-                            <li class="active"><a href="your/nice/url">登录·注册</a></li>
-                        </ul> -->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="./login.jsp"
+                            class="button button-glow button-border button-rounded button-highlight"
+                            >登录·注册</a></li>
+                        </ul>
                     </div><!-- END .navbar-collapse -->
                 </div>
             </nav>

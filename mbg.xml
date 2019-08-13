@@ -39,8 +39,9 @@
 
 
         <!-- table指定每个表的生成策略 -->
-<!--        <table tableName="air" domainObjectName="AirFile"></table>-->
+        <table tableName="air" domainObjectName="AirFile"/>
         <table tableName="air_log" domainObjectName="AirLog"/>
+        <table tableName="userdata" domainObjectName="User"/>
     </context>
 </generatorConfiguration>
 

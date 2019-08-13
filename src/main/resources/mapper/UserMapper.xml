@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisoo.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.yisoo.bean.User">
+    <id column="yisoo_id" jdbcType="INTEGER" property="yisooId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_perm" jdbcType="INTEGER" property="userPerm" />
+    <result column="reg_time" jdbcType="TIMESTAMP" property="regTime" />
+    <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
+    <result column="other_1" jdbcType="VARCHAR" property="other1" />
+    <result column="other_2" jdbcType="VARCHAR" property="other2" />
+    <result column="other_3" jdbcType="VARCHAR" property="other3" />
+    <result column="login_status" jdbcType="INTEGER" property="loginStatus" />
+    <result column="login_last_ip" jdbcType="VARCHAR" property="loginLastIp" />
+    <result column="login_last_time" jdbcType="TIMESTAMP" property="loginLastTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    yisoo_id, user_id, username, password, email, user_phone, user_perm, reg_time, img_path, 
+    other_1, other_2, other_3, login_status, login_last_ip, login_last_time
+  </sql>
+  <select id="selectByExample" parameterType="com.yisoo.bean.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from userdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userdata
+    where yisoo_id = #{yisooId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from userdata
+    where yisoo_id = #{yisooId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisoo.bean.UserExample">
+    delete from userdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisoo.bean.User">
+    insert into userdata (yisoo_id, user_id, username, 
+      password, email, user_phone, 
+      user_perm, reg_time, img_path, 
+      other_1, other_2, other_3, 
+      login_status, login_last_ip, login_last_time
+      )
+    values (#{yisooId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, 
+      #{userPerm,jdbcType=INTEGER}, #{regTime,jdbcType=TIMESTAMP}, #{imgPath,jdbcType=VARCHAR}, 
+      #{other1,jdbcType=VARCHAR}, #{other2,jdbcType=VARCHAR}, #{other3,jdbcType=VARCHAR}, 
+      #{loginStatus,jdbcType=INTEGER}, #{loginLastIp,jdbcType=VARCHAR}, #{loginLastTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisoo.bean.User">
+    insert into userdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="yisooId != null">
+        yisoo_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userPerm != null">
+        user_perm,
+      </if>
+      <if test="regTime != null">
+        reg_time,
+      </if>
+      <if test="imgPath != null">
+        img_path,
+      </if>
+      <if test="other1 != null">
+        other_1,
+      </if>
+      <if test="other2 != null">
+        other_2,
+      </if>
+      <if test="other3 != null">
+        other_3,
+      </if>
+      <if test="loginStatus != null">
+        login_status,
+      </if>
+      <if test="loginLastIp != null">
+        login_last_ip,
+      </if>
+      <if test="loginLastTime != null">
+        login_last_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="yisooId != null">
+        #{yisooId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPerm != null">
+        #{userPerm,jdbcType=INTEGER},
+      </if>
+      <if test="regTime != null">
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgPath != null">
+        #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="other1 != null">
+        #{other1,jdbcType=VARCHAR},
+      </if>
+      <if test="other2 != null">
+        #{other2,jdbcType=VARCHAR},
+      </if>
+      <if test="other3 != null">
+        #{other3,jdbcType=VARCHAR},
+      </if>
+      <if test="loginStatus != null">
+        #{loginStatus,jdbcType=INTEGER},
+      </if>
+      <if test="loginLastIp != null">
+        #{loginLastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginLastTime != null">
+        #{loginLastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisoo.bean.UserExample" resultType="java.lang.Long">
+    select count(*) from userdata
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update userdata
+    <set>
+      <if test="record.yisooId != null">
+        yisoo_id = #{record.yisooId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null">
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPerm != null">
+        user_perm = #{record.userPerm,jdbcType=INTEGER},
+      </if>
+      <if test="record.regTime != null">
+        reg_time = #{record.regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.imgPath != null">
+        img_path = #{record.imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.other1 != null">
+        other_1 = #{record.other1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.other2 != null">
+        other_2 = #{record.other2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.other3 != null">
+        other_3 = #{record.other3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginStatus != null">
+        login_status = #{record.loginStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginLastIp != null">
+        login_last_ip = #{record.loginLastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginLastTime != null">
+        login_last_time = #{record.loginLastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update userdata
+    set yisoo_id = #{record.yisooId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      user_perm = #{record.userPerm,jdbcType=INTEGER},
+      reg_time = #{record.regTime,jdbcType=TIMESTAMP},
+      img_path = #{record.imgPath,jdbcType=VARCHAR},
+      other_1 = #{record.other1,jdbcType=VARCHAR},
+      other_2 = #{record.other2,jdbcType=VARCHAR},
+      other_3 = #{record.other3,jdbcType=VARCHAR},
+      login_status = #{record.loginStatus,jdbcType=INTEGER},
+      login_last_ip = #{record.loginLastIp,jdbcType=VARCHAR},
+      login_last_time = #{record.loginLastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisoo.bean.User">
+    update userdata
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPerm != null">
+        user_perm = #{userPerm,jdbcType=INTEGER},
+      </if>
+      <if test="regTime != null">
+        reg_time = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgPath != null">
+        img_path = #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="other1 != null">
+        other_1 = #{other1,jdbcType=VARCHAR},
+      </if>
+      <if test="other2 != null">
+        other_2 = #{other2,jdbcType=VARCHAR},
+      </if>
+      <if test="other3 != null">
+        other_3 = #{other3,jdbcType=VARCHAR},
+      </if>
+      <if test="loginStatus != null">
+        login_status = #{loginStatus,jdbcType=INTEGER},
+      </if>
+      <if test="loginLastIp != null">
+        login_last_ip = #{loginLastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginLastTime != null">
+        login_last_time = #{loginLastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where yisoo_id = #{yisooId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisoo.bean.User">
+    update userdata
+    set user_id = #{userId,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_perm = #{userPerm,jdbcType=INTEGER},
+      reg_time = #{regTime,jdbcType=TIMESTAMP},
+      img_path = #{imgPath,jdbcType=VARCHAR},
+      other_1 = #{other1,jdbcType=VARCHAR},
+      other_2 = #{other2,jdbcType=VARCHAR},
+      other_3 = #{other3,jdbcType=VARCHAR},
+      login_status = #{loginStatus,jdbcType=INTEGER},
+      login_last_ip = #{loginLastIp,jdbcType=VARCHAR},
+      login_last_time = #{loginLastTime,jdbcType=TIMESTAMP}
+    where yisoo_id = #{yisooId,jdbcType=INTEGER}
+  </update>
+</mapper>

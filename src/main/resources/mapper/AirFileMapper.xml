@@ -272,4 +272,546 @@
       air_size = #{airSize,jdbcType=INTEGER}
     where air_id = #{airId,jdbcType=INTEGER}
   </update>
+  <resultMap id="BaseResultMap" type="com.yisoo.bean.AirFile">
+    <id column="air_id" jdbcType="INTEGER" property="airId" />
+    <result column="air_name" jdbcType="VARCHAR" property="airName" />
+    <result column="air_md5" jdbcType="VARCHAR" property="airMd5" />
+    <result column="air_num" jdbcType="INTEGER" property="airNum" />
+    <result column="air_path" jdbcType="VARCHAR" property="airPath" />
+    <result column="air_date" jdbcType="TIMESTAMP" property="airDate" />
+    <result column="air_long" jdbcType="INTEGER" property="airLong" />
+    <result column="air_share" jdbcType="VARCHAR" property="airShare" />
+    <result column="air_size" jdbcType="INTEGER" property="airSize" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    air_id, air_name, air_md5, air_num, air_path, air_date, air_long, air_share, air_size
+  </sql>
+  <select id="selectByExample" parameterType="com.yisoo.bean.AirFileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from air
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from air
+    where air_id = #{airId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from air
+    where air_id = #{airId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisoo.bean.AirFileExample">
+    delete from air
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisoo.bean.AirFile">
+    insert into air (air_id, air_name, air_md5, 
+      air_num, air_path, air_date, 
+      air_long, air_share, air_size
+      )
+    values (#{airId,jdbcType=INTEGER}, #{airName,jdbcType=VARCHAR}, #{airMd5,jdbcType=VARCHAR}, 
+      #{airNum,jdbcType=INTEGER}, #{airPath,jdbcType=VARCHAR}, #{airDate,jdbcType=TIMESTAMP}, 
+      #{airLong,jdbcType=INTEGER}, #{airShare,jdbcType=VARCHAR}, #{airSize,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisoo.bean.AirFile">
+    insert into air
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="airId != null">
+        air_id,
+      </if>
+      <if test="airName != null">
+        air_name,
+      </if>
+      <if test="airMd5 != null">
+        air_md5,
+      </if>
+      <if test="airNum != null">
+        air_num,
+      </if>
+      <if test="airPath != null">
+        air_path,
+      </if>
+      <if test="airDate != null">
+        air_date,
+      </if>
+      <if test="airLong != null">
+        air_long,
+      </if>
+      <if test="airShare != null">
+        air_share,
+      </if>
+      <if test="airSize != null">
+        air_size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="airId != null">
+        #{airId,jdbcType=INTEGER},
+      </if>
+      <if test="airName != null">
+        #{airName,jdbcType=VARCHAR},
+      </if>
+      <if test="airMd5 != null">
+        #{airMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="airNum != null">
+        #{airNum,jdbcType=INTEGER},
+      </if>
+      <if test="airPath != null">
+        #{airPath,jdbcType=VARCHAR},
+      </if>
+      <if test="airDate != null">
+        #{airDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="airLong != null">
+        #{airLong,jdbcType=INTEGER},
+      </if>
+      <if test="airShare != null">
+        #{airShare,jdbcType=VARCHAR},
+      </if>
+      <if test="airSize != null">
+        #{airSize,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisoo.bean.AirFileExample" resultType="java.lang.Long">
+    select count(*) from air
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update air
+    <set>
+      <if test="record.airId != null">
+        air_id = #{record.airId,jdbcType=INTEGER},
+      </if>
+      <if test="record.airName != null">
+        air_name = #{record.airName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airMd5 != null">
+        air_md5 = #{record.airMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airNum != null">
+        air_num = #{record.airNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.airPath != null">
+        air_path = #{record.airPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airDate != null">
+        air_date = #{record.airDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.airLong != null">
+        air_long = #{record.airLong,jdbcType=INTEGER},
+      </if>
+      <if test="record.airShare != null">
+        air_share = #{record.airShare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airSize != null">
+        air_size = #{record.airSize,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update air
+    set air_id = #{record.airId,jdbcType=INTEGER},
+      air_name = #{record.airName,jdbcType=VARCHAR},
+      air_md5 = #{record.airMd5,jdbcType=VARCHAR},
+      air_num = #{record.airNum,jdbcType=INTEGER},
+      air_path = #{record.airPath,jdbcType=VARCHAR},
+      air_date = #{record.airDate,jdbcType=TIMESTAMP},
+      air_long = #{record.airLong,jdbcType=INTEGER},
+      air_share = #{record.airShare,jdbcType=VARCHAR},
+      air_size = #{record.airSize,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisoo.bean.AirFile">
+    update air
+    <set>
+      <if test="airName != null">
+        air_name = #{airName,jdbcType=VARCHAR},
+      </if>
+      <if test="airMd5 != null">
+        air_md5 = #{airMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="airNum != null">
+        air_num = #{airNum,jdbcType=INTEGER},
+      </if>
+      <if test="airPath != null">
+        air_path = #{airPath,jdbcType=VARCHAR},
+      </if>
+      <if test="airDate != null">
+        air_date = #{airDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="airLong != null">
+        air_long = #{airLong,jdbcType=INTEGER},
+      </if>
+      <if test="airShare != null">
+        air_share = #{airShare,jdbcType=VARCHAR},
+      </if>
+      <if test="airSize != null">
+        air_size = #{airSize,jdbcType=INTEGER},
+      </if>
+    </set>
+    where air_id = #{airId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisoo.bean.AirFile">
+    update air
+    set air_name = #{airName,jdbcType=VARCHAR},
+      air_md5 = #{airMd5,jdbcType=VARCHAR},
+      air_num = #{airNum,jdbcType=INTEGER},
+      air_path = #{airPath,jdbcType=VARCHAR},
+      air_date = #{airDate,jdbcType=TIMESTAMP},
+      air_long = #{airLong,jdbcType=INTEGER},
+      air_share = #{airShare,jdbcType=VARCHAR},
+      air_size = #{airSize,jdbcType=INTEGER}
+    where air_id = #{airId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.yisoo.bean.AirFile">
+    <id column="air_id" jdbcType="INTEGER" property="airId" />
+    <result column="air_name" jdbcType="VARCHAR" property="airName" />
+    <result column="air_md5" jdbcType="VARCHAR" property="airMd5" />
+    <result column="air_num" jdbcType="INTEGER" property="airNum" />
+    <result column="air_path" jdbcType="VARCHAR" property="airPath" />
+    <result column="air_date" jdbcType="TIMESTAMP" property="airDate" />
+    <result column="air_long" jdbcType="INTEGER" property="airLong" />
+    <result column="air_share" jdbcType="VARCHAR" property="airShare" />
+    <result column="air_size" jdbcType="INTEGER" property="airSize" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    air_id, air_name, air_md5, air_num, air_path, air_date, air_long, air_share, air_size
+  </sql>
+  <select id="selectByExample" parameterType="com.yisoo.bean.AirFileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from air
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from air
+    where air_id = #{airId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from air
+    where air_id = #{airId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisoo.bean.AirFileExample">
+    delete from air
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisoo.bean.AirFile">
+    insert into air (air_id, air_name, air_md5, 
+      air_num, air_path, air_date, 
+      air_long, air_share, air_size
+      )
+    values (#{airId,jdbcType=INTEGER}, #{airName,jdbcType=VARCHAR}, #{airMd5,jdbcType=VARCHAR}, 
+      #{airNum,jdbcType=INTEGER}, #{airPath,jdbcType=VARCHAR}, #{airDate,jdbcType=TIMESTAMP}, 
+      #{airLong,jdbcType=INTEGER}, #{airShare,jdbcType=VARCHAR}, #{airSize,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisoo.bean.AirFile">
+    insert into air
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="airId != null">
+        air_id,
+      </if>
+      <if test="airName != null">
+        air_name,
+      </if>
+      <if test="airMd5 != null">
+        air_md5,
+      </if>
+      <if test="airNum != null">
+        air_num,
+      </if>
+      <if test="airPath != null">
+        air_path,
+      </if>
+      <if test="airDate != null">
+        air_date,
+      </if>
+      <if test="airLong != null">
+        air_long,
+      </if>
+      <if test="airShare != null">
+        air_share,
+      </if>
+      <if test="airSize != null">
+        air_size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="airId != null">
+        #{airId,jdbcType=INTEGER},
+      </if>
+      <if test="airName != null">
+        #{airName,jdbcType=VARCHAR},
+      </if>
+      <if test="airMd5 != null">
+        #{airMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="airNum != null">
+        #{airNum,jdbcType=INTEGER},
+      </if>
+      <if test="airPath != null">
+        #{airPath,jdbcType=VARCHAR},
+      </if>
+      <if test="airDate != null">
+        #{airDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="airLong != null">
+        #{airLong,jdbcType=INTEGER},
+      </if>
+      <if test="airShare != null">
+        #{airShare,jdbcType=VARCHAR},
+      </if>
+      <if test="airSize != null">
+        #{airSize,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisoo.bean.AirFileExample" resultType="java.lang.Long">
+    select count(*) from air
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update air
+    <set>
+      <if test="record.airId != null">
+        air_id = #{record.airId,jdbcType=INTEGER},
+      </if>
+      <if test="record.airName != null">
+        air_name = #{record.airName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airMd5 != null">
+        air_md5 = #{record.airMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airNum != null">
+        air_num = #{record.airNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.airPath != null">
+        air_path = #{record.airPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airDate != null">
+        air_date = #{record.airDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.airLong != null">
+        air_long = #{record.airLong,jdbcType=INTEGER},
+      </if>
+      <if test="record.airShare != null">
+        air_share = #{record.airShare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airSize != null">
+        air_size = #{record.airSize,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update air
+    set air_id = #{record.airId,jdbcType=INTEGER},
+      air_name = #{record.airName,jdbcType=VARCHAR},
+      air_md5 = #{record.airMd5,jdbcType=VARCHAR},
+      air_num = #{record.airNum,jdbcType=INTEGER},
+      air_path = #{record.airPath,jdbcType=VARCHAR},
+      air_date = #{record.airDate,jdbcType=TIMESTAMP},
+      air_long = #{record.airLong,jdbcType=INTEGER},
+      air_share = #{record.airShare,jdbcType=VARCHAR},
+      air_size = #{record.airSize,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisoo.bean.AirFile">
+    update air
+    <set>
+      <if test="airName != null">
+        air_name = #{airName,jdbcType=VARCHAR},
+      </if>
+      <if test="airMd5 != null">
+        air_md5 = #{airMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="airNum != null">
+        air_num = #{airNum,jdbcType=INTEGER},
+      </if>
+      <if test="airPath != null">
+        air_path = #{airPath,jdbcType=VARCHAR},
+      </if>
+      <if test="airDate != null">
+        air_date = #{airDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="airLong != null">
+        air_long = #{airLong,jdbcType=INTEGER},
+      </if>
+      <if test="airShare != null">
+        air_share = #{airShare,jdbcType=VARCHAR},
+      </if>
+      <if test="airSize != null">
+        air_size = #{airSize,jdbcType=INTEGER},
+      </if>
+    </set>
+    where air_id = #{airId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisoo.bean.AirFile">
+    update air
+    set air_name = #{airName,jdbcType=VARCHAR},
+      air_md5 = #{airMd5,jdbcType=VARCHAR},
+      air_num = #{airNum,jdbcType=INTEGER},
+      air_path = #{airPath,jdbcType=VARCHAR},
+      air_date = #{airDate,jdbcType=TIMESTAMP},
+      air_long = #{airLong,jdbcType=INTEGER},
+      air_share = #{airShare,jdbcType=VARCHAR},
+      air_size = #{airSize,jdbcType=INTEGER}
+    where air_id = #{airId,jdbcType=INTEGER}
+  </update>
 </mapper>
