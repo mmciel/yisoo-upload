@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yisoo.dao.AirLogMapper">
-  <resultMap id="BaseResultMap" type="com.yisoo.bean.AirLog">
-    <result column="air_id" jdbcType="INTEGER" property="airId" />
-    <result column="air_adress" jdbcType="VARCHAR" property="airAdress" />
-    <result column="air_time" jdbcType="TIMESTAMP" property="airTime" />
-    <result column="air_flag" jdbcType="VARCHAR" property="airFlag" />
+<mapper namespace="com.yisoo.dao.GroupInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yisoo.bean.GroupInfo">
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="g_number" jdbcType="VARCHAR" property="gNumber" />
+    <result column="g_name" jdbcType="VARCHAR" property="gName" />
+    <result column="g_group" jdbcType="VARCHAR" property="gGroup" />
+    <result column="g_email" jdbcType="VARCHAR" property="gEmail" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    air_id, air_adress, air_time, air_flag
+    group_id, g_number, g_name, g_group, g_email
   </sql>
-  <select id="selectByExample" parameterType="com.yisoo.bean.AirLogExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.yisoo.bean.GroupInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from air_log
+    from groupinfo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,69 +83,78 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.yisoo.bean.AirLogExample">
-    delete from air_log
+  <delete id="deleteByExample" parameterType="com.yisoo.bean.GroupInfoExample">
+    delete from groupinfo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.yisoo.bean.AirLog">
-    insert into air_log (air_id, air_adress, air_time, 
-      air_flag)
-    values (#{airId,jdbcType=INTEGER}, #{airAdress,jdbcType=VARCHAR}, #{airTime,jdbcType=TIMESTAMP}, 
-      #{airFlag,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.yisoo.bean.GroupInfo">
+    insert into groupinfo (group_id, g_number, g_name, 
+      g_group, g_email)
+    values (#{groupId,jdbcType=INTEGER}, #{gNumber,jdbcType=VARCHAR}, #{gName,jdbcType=VARCHAR}, 
+      #{gGroup,jdbcType=VARCHAR}, #{gEmail,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.yisoo.bean.AirLog">
-    insert into air_log
+  <insert id="insertSelective" parameterType="com.yisoo.bean.GroupInfo">
+    insert into groupinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="airId != null">
-        air_id,
+      <if test="groupId != null">
+        group_id,
       </if>
-      <if test="airAdress != null">
-        air_adress,
+      <if test="gNumber != null">
+        g_number,
       </if>
-      <if test="airTime != null">
-        air_time,
+      <if test="gName != null">
+        g_name,
       </if>
-      <if test="airFlag != null">
-        air_flag,
+      <if test="gGroup != null">
+        g_group,
+      </if>
+      <if test="gEmail != null">
+        g_email,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="airId != null">
-        #{airId,jdbcType=INTEGER},
+      <if test="groupId != null">
+        #{groupId,jdbcType=INTEGER},
       </if>
-      <if test="airAdress != null">
-        #{airAdress,jdbcType=VARCHAR},
+      <if test="gNumber != null">
+        #{gNumber,jdbcType=VARCHAR},
       </if>
-      <if test="airTime != null">
-        #{airTime,jdbcType=TIMESTAMP},
+      <if test="gName != null">
+        #{gName,jdbcType=VARCHAR},
       </if>
-      <if test="airFlag != null">
-        #{airFlag,jdbcType=VARCHAR},
+      <if test="gGroup != null">
+        #{gGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="gEmail != null">
+        #{gEmail,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.yisoo.bean.AirLogExample" resultType="java.lang.Long">
-    select count(*) from air_log
+  <select id="countByExample" parameterType="com.yisoo.bean.GroupInfoExample" resultType="java.lang.Long">
+    select count(*) from groupinfo
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update air_log
+    update groupinfo
     <set>
-      <if test="record.airId != null">
-        air_id = #{record.airId,jdbcType=INTEGER},
+      <if test="record.groupId != null">
+        group_id = #{record.groupId,jdbcType=INTEGER},
       </if>
-      <if test="record.airAdress != null">
-        air_adress = #{record.airAdress,jdbcType=VARCHAR},
+      <if test="record.gNumber != null">
+        g_number = #{record.gNumber,jdbcType=VARCHAR},
       </if>
-      <if test="record.airTime != null">
-        air_time = #{record.airTime,jdbcType=TIMESTAMP},
+      <if test="record.gName != null">
+        g_name = #{record.gName,jdbcType=VARCHAR},
       </if>
-      <if test="record.airFlag != null">
-        air_flag = #{record.airFlag,jdbcType=VARCHAR},
+      <if test="record.gGroup != null">
+        g_group = #{record.gGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gEmail != null">
+        g_email = #{record.gEmail,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,11 +162,12 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update air_log
-    set air_id = #{record.airId,jdbcType=INTEGER},
-      air_adress = #{record.airAdress,jdbcType=VARCHAR},
-      air_time = #{record.airTime,jdbcType=TIMESTAMP},
-      air_flag = #{record.airFlag,jdbcType=VARCHAR}
+    update groupinfo
+    set group_id = #{record.groupId,jdbcType=INTEGER},
+      g_number = #{record.gNumber,jdbcType=VARCHAR},
+      g_name = #{record.gName,jdbcType=VARCHAR},
+      g_group = #{record.gGroup,jdbcType=VARCHAR},
+      g_email = #{record.gEmail,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

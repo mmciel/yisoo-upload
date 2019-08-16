@@ -152,4 +152,25 @@ public class User {
     public void setLoginLastTime(Date loginLastTime) {
         this.loginLastTime = loginLastTime;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "yisooId=" + yisooId +
+                ", userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userPerm=" + userPerm +
+                ", regTime=" + regTime +
+                ", imgPath='" + imgPath + '\'' +
+                ", other1='" + other1 + '\'' +
+                ", other2='" + other2 + '\'' +
+                ", other3='" + other3 + '\'' +
+                ", loginStatus=" + loginStatus +
+                ", loginLastIp='" + loginLastIp + '\'' +
+                ", loginLastTime=" + loginLastTime +
+                '}';
+    }
 }

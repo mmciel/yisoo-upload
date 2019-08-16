@@ -43,7 +43,7 @@
 
 
 					<!-- Start Sign In Form -->
-					<form action="${APP_PATH}/user/login" class="fh5co-form animate-box" data-animate-effect="fadeIn">
+					<form action="" class="fh5co-form animate-box" data-animate-effect="fadeIn">
 						<h2>登录</h2>
 						<div class="form-group">
 							<label for="userid" class="sr-only">账号</label>
@@ -60,7 +60,7 @@
 							<p>无法登录：<a href="register.jsp">注册</a> | <a href="forgot.jsp">忘记密码？</a></p>
 						</div>
 						<div class="form-group">
-							<input type="submit" value="登录" class="btn btn-primary">
+							<input type="button" id="submit" value="登录" class="btn btn-primary">
 						</div>
 					</form>
 					<!-- END Sign In Form -->
@@ -81,7 +81,27 @@
 	<script src="${APP_PATH}/js/jquery.waypoints.min.js"></script>
 	<!-- Main JS -->
 	<script src="${APP_PATH}/js/main.js"></script>
-
+	<script>
+			$("#submit").click(function(){
+				$.ajax({
+					url:"${APP_PATH}/user/login",
+					type:"post",
+					data:{
+						"userid":$("#userid").val(),
+						"password":$("#password").val(),
+					},
+					success:function (result){
+						if(result.result === 200){
+							// 登录成功
+							window.location.href="./admin.jsp";
+						}else{
+							// 登录失败
+							window.location.href="#";
+						}
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
 

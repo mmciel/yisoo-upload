@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     pageContext.setAttribute("APP_PATH", request.getContextPath());
 
@@ -39,7 +38,7 @@
 
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">用户名</a>
+            <a href="javascript:;" id="username-label">用户名</a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
@@ -58,14 +57,78 @@
         <ul id="nav">
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="个人管理">&#xe6b8;</i>
-                    <cite>个人管理</cite>
+                <i class="iconfont left-nav-li" lay-tips="信息管理">&#xe6b8;</i>
+                <cite>信息管理</cite>
+                <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('个人信息','admin-personinfo.jsp')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>个人信息</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('新建名单','admin-addgroup.jsp')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>新建名单</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('名单信息','#')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>名单信息</cite></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="项目管理">&#xe6b8;</i>
+                    <cite>项目管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('账号修改','#')">
+                        <a onclick="xadmin.add_tab('项目概览','#')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>账号修改</cite></a>
+                            <cite>项目概览</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('项目细览','#')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>项目细览</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('项目导出','#')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>项目导出</cite></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="数据管理">&#xe6b8;</i>
+                    <cite>数据管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('提交概况','#')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>提交概况</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('提交统计','#')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>提交统计</cite></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="敬请期待">&#xe6b8;</i>
+                    <cite>敬请期待</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('系统信息','admin-systeminfo.jsp')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>系统信息</cite></a>
                     </li>
                 </ul>
             </li>
@@ -98,5 +161,34 @@
 <style id="theme_style"></style>
 <!-- 右侧主体结束 -->
 <!-- 中部结束 -->
+<!-- jQuery -->
+<script src="${APP_PATH}/js/jquery.min.js"></script>
+<script>
+    var yisooid = "${sessionScope.yisooid}";
+    var userid = "${sessionScope.userid}";
+    if(yisooid === "" || userid ===""){
+        window.location.href = "login.jsp";
+        // console.log("o");
+    }
+    $.ajax({
+        url:"user/admincheck",
+        type:"post",
+        data:{
+            "yisooid":yisooid,
+            "userid":userid
+        },
+        success:function (result) {
+            if(result.result === 400){
+                window.location.href = "login.jsp";
+                // console.log(result);
+            }else{
+            //    写入用户名
+                $("#username-label").text(result.username);
+                console.log(result);
+                
+            }
+        }
+    });
+</script>
 </body>
 </html>

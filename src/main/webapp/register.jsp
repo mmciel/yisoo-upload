@@ -43,35 +43,39 @@
 		<div class="col-md-4 col-md-offset-4">
 
 			<!-- Start Sign In Form -->
-			<form action="#" class="fh5co-form animate-box" data-animate-effect="fadeIn">
-				<h2>Sign Up</h2>
-				<div class="form-group">
+			<form action="${APP_PATH}/user/reg" class="fh5co-form animate-box" data-animate-effect="fadeIn">
+				<h2>注册YiSoo账号</h2>
+				<!-- <div class="form-group">
 					<div class="alert alert-success" role="alert">Your info has been saved.</div>
+				</div> -->
+				<div class="form-group">
+					<label for="userid" class="sr-only">登录ID</label>
+					<input type="text" class="form-control" id="userid" placeholder="登录ID" autocomplete="off">
 				</div>
 				<div class="form-group">
-					<label for="name" class="sr-only">Name</label>
-					<input type="text" class="form-control" id="name" placeholder="Name" autocomplete="off">
+					<label for="password" class="sr-only">密码</label>
+					<input type="password" class="form-control" id="password" placeholder="密码" autocomplete="off">
 				</div>
 				<div class="form-group">
-					<label for="email" class="sr-only">Email</label>
-					<input type="email" class="form-control" id="email" placeholder="Email" autocomplete="off">
+					<label for="re-password" class="sr-only">重复密码</label>
+					<input type="password" class="form-control" id="re-password" placeholder="重复密码" autocomplete="off">
 				</div>
 				<div class="form-group">
-					<label for="password" class="sr-only">Password</label>
-					<input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
+					<label for="email" class="sr-only">邮箱</label>
+					<input type="email" class="form-control" id="email" placeholder="邮箱" autocomplete="off">
 				</div>
 				<div class="form-group">
-					<label for="re-password" class="sr-only">Re-type Password</label>
-					<input type="password" class="form-control" id="re-password" placeholder="Re-type Password" autocomplete="off">
+					<label for="userphone" class="sr-only">手机号</label>
+					<input type="text" class="form-control" id="userphone" placeholder="手机号" autocomplete="off">
 				</div>
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="remember"><input type="checkbox" id="remember"> Remember Me</label>
+				</div> -->
+				<div class="form-group">
+					<p>已经注册? <a href="login.jsp">登录</a></p>
 				</div>
 				<div class="form-group">
-					<p>Already registered? <a href="login.jsp">Sign In</a></p>
-				</div>
-				<div class="form-group">
-					<input type="submit" value="Sign Up" class="btn btn-primary">
+					<input type="button" value="注册" id="submit" class="btn btn-primary">
 				</div>
 			</form>
 			<!-- END Sign In Form -->
@@ -91,7 +95,29 @@
 <script src="${APP_PATH}/js/jquery.waypoints.min.js"></script>
 <!-- Main JS -->
 <script src="${APP_PATH}/js/main.js"></script>
-
+<script>
+		$("#submit").click(function(){
+			$.ajax({
+				url:"${APP_PATH}/user/reg",
+				type:"post",
+				data:{
+					"userid":$("#userid").val(),
+					"password":$("#password").val(),
+					"email":$("#email").val(),
+					"userphone":$("#userphone").val()
+				},
+				success:function (result){
+					if(result.result === 200){
+						// 注册成功
+						window.location.href="./login.jsp";
+					}else{
+						// 注册失败
+						window.location.href="#";
+					}
+				}
+			});
+		});
+	</script>
 </body>
 </html>
 

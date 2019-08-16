@@ -137,73 +137,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="layui-col-md12">
-                    <div class="layui-card">
-                        <div class="layui-card-header">系统信息</div>
-                        <div class="layui-card-body ">
-                            <table class="layui-table">
-                                <tbody>
-                                    <tr>
-                                        <th>xxx版本</th>
-                                        <td>1.0.180420</td></tr>
-                                    <tr>
-                                        <th>服务器地址</th>
-                                        <td>x.xuebingsi.com</td></tr>
-                                    <tr>
-                                        <th>操作系统</th>
-                                        <td>WINNT</td></tr>
-                                    <tr>
-                                        <th>运行环境</th>
-                                        <td>Apache/2.4.23 (Win32) OpenSSL/1.0.2j mod_fcgid/2.3.9</td></tr>
-                                    <tr>
-                                        <th>PHP版本</th>
-                                        <td>5.6.27</td></tr>
-                                    <tr>
-                                        <th>PHP运行方式</th>
-                                        <td>cgi-fcgi</td></tr>
-                                    <tr>
-                                        <th>MYSQL版本</th>
-                                        <td>5.5.53</td></tr>
-                                    <tr>
-                                        <th>ThinkPHP</th>
-                                        <td>5.0.18</td></tr>
-                                    <tr>
-                                        <th>上传附件限制</th>
-                                        <td>2M</td></tr>
-                                    <tr>
-                                        <th>执行时间限制</th>
-                                        <td>30s</td></tr>
-                                    <tr>
-                                        <th>剩余空间</th>
-                                        <td>86015.2M</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md12">
-                    <div class="layui-card">
-                        <div class="layui-card-header">开发团队</div>
-                        <div class="layui-card-body ">
-                            <table class="layui-table">
-                                <tbody>
-                                    <tr>
-                                        <th>版权所有</th>
-                                        <td>xuebingsi(xuebingsi)
-                                            <a href="http://x.xuebingsi.com/" target="_blank">访问官网</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>开发者</th>
-                                        <td>马志斌(113664000@qq.com)</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <style id="welcome_style"></style>
-                <div class="layui-col-md12">
-                    <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery,本系统由x-admin提供技术支持。</blockquote></div>
-            </div>
+<%--                <style id="welcome_style"></style>--%>
         </div>
         </div>
     </body>

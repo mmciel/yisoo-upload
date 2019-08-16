@@ -1,8 +1,5 @@
 package com.yisoo.test;
 
-import com.yisoo.bean.UserMsg;
-import org.junit.Test;
-
 public class TestUserLogin {
 //    @Test
 //    public void s(){

@@ -13,10 +13,10 @@
         <package name="com.yisoo.bean"/>
     </typeAliases>
 
-<!--    <plugins>-->
-<!--        <plugin interceptor="com.github.pagehelper.PageInterceptor">-->
-<!--            &lt;!&ndash;分页极限参数合理化&ndash;&gt;-->
-<!--            <property name="reasonable" value="true"/>-->
-<!--        </plugin>-->
-<!--    </plugins>-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--分页极限参数合理化-->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
 </configuration>
