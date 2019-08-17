@@ -54,8 +54,9 @@ public class ExcelParseUtil {
 //            System.out.println();
 //        }
 
-        GroupInfo groupInfo = new GroupInfo();
+
         for (Map<String,String> map:list){
+            GroupInfo groupInfo = new GroupInfo();
             for (Map.Entry<String,String> entry:map.entrySet()){
                 if (entry.getKey().equals("group")){
                     groupInfo.setgGroup(entry.getValue());

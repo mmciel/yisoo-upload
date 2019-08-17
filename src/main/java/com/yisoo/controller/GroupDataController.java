@@ -1,6 +1,7 @@
 package com.yisoo.controller;
 
 import com.yisoo.bean.GroupData;
+import com.yisoo.bean.GroupDataTableMsg;
 import com.yisoo.bean.GroupInfo;
 import com.yisoo.bean.GroupMsg;
 import com.yisoo.service.GroupDataService;
@@ -30,6 +31,37 @@ public class GroupDataController {
     @Autowired
     GroupInfoService groupInfoService;
 
+//    查看所有名单
+    @RequestMapping(value = "group/view/group",method = RequestMethod.GET)
+    @ResponseBody
+    public GroupDataTableMsg getGroupLine(
+            @RequestParam("yisooid")String yisooid
+    ){
+        List<GroupData> list =groupDataService.getGroupDataListByYisooId(yisooid);
+
+        GroupDataTableMsg groupDataTableMsg = GroupDataTableMsg.success();
+        groupDataTableMsg.setData(list);
+        System.out.println(list);
+        return groupDataTableMsg;
+    }
+
+//    上传名单数据
+        @RequestMapping(value = "group/view/del",method = RequestMethod.GET)
+        @ResponseBody
+        public GroupMsg delGroup(
+                @RequestParam("groupid")String groupid
+        ){
+//            删除groupdata
+            groupDataService.delGroupDataByGroupId(groupid);
+//            删除groupinfo
+            groupInfoService.delGroupDataByGroupId(groupid);
+
+            GroupMsg groupMsg = GroupMsg.getSuccess();
+            groupMsg.setResult("200");
+            return groupMsg;
+        }
+
+//  上传名单数据
     @RequestMapping(value = "group/upload/data",method = RequestMethod.POST)
     @ResponseBody
     public GroupMsg uploadData(
@@ -47,7 +79,7 @@ public class GroupDataController {
         return groupMsg;
     }
 
-
+//上传名单文件
     @RequestMapping(value = "group/upload/file",method = RequestMethod.POST)
     @ResponseBody
     public GroupMsg uploadFile(MultipartFile file, HttpServletRequest request) throws IOException {

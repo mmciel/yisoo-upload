@@ -14,6 +14,18 @@ public class GroupDataService {
     @Autowired
     GroupDataMapper groupDataMapper;
 
+//    根据yisooid获取所有数据项
+    public List<GroupData> getGroupDataListByYisooId(String yisooid){
+        GroupDataExample groupDataExample = new GroupDataExample();
+        GroupDataExample.Criteria criteria = groupDataExample.createCriteria();
+        criteria.andYisooIdEqualTo(Integer.valueOf(yisooid));
+        List<GroupData> groupData = groupDataMapper.selectByExample(groupDataExample);
+        return groupData;
+    }
+//删除数据项
+    public void delGroupDataByGroupId(String groupid){
+        groupDataMapper.deleteByPrimaryKey(Integer.valueOf(groupid));
+    }
 //添加数据项
     public void addGroupData(GroupData groupData){
         groupDataMapper.insertSelective(groupData);
