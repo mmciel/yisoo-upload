@@ -85,12 +85,12 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('项目概览','#')">
+                        <a onclick="xadmin.add_tab('项目控制','admin-projectinfo.jsp')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>项目概览</cite></a>
+                            <cite>项目控制</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('项目细览','#')">
+                        <a onclick="xadmin.add_tab('项目浏览','error.jsp')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>项目细览</cite></a>
                     </li>

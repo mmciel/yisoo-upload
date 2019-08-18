@@ -42,8 +42,10 @@
 <!--        <table tableName="air" domainObjectName="AirFile"/>-->
 <!--        <table tableName="air_log" domainObjectName="AirLog"/>-->
 <!--        <table tableName="userdata" domainObjectName="User"/>-->
-        <table tableName="groupdata" domainObjectName="GroupData"/>
+<!--        <table tableName="groupdata" domainObjectName="GroupData"/>-->
 <!--        <table tableName="groupinfo" domainObjectName="GroupInfo"/>-->
+        <table tableName="projectinfo" domainObjectName="ProjectInfo"/>
+
     </context>
 </generatorConfiguration>
 

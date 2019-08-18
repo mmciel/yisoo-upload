@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisoo.dao.ProjectInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yisoo.bean.ProjectInfo">
+    <id column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="yisoo_id" jdbcType="INTEGER" property="yisooId" />
+    <result column="p_title" jdbcType="VARCHAR" property="pTitle" />
+    <result column="p_word" jdbcType="VARCHAR" property="pWord" />
+    <result column="p_path" jdbcType="VARCHAR" property="pPath" />
+    <result column="p_status" jdbcType="INTEGER" property="pStatus" />
+    <result column="p_group_id" jdbcType="INTEGER" property="pGroupId" />
+    <result column="p_group_is_class" jdbcType="TINYINT" property="pGroupIsClass" />
+    <result column="p_group_is_name" jdbcType="TINYINT" property="pGroupIsName" />
+    <result column="p_group_is_num" jdbcType="TINYINT" property="pGroupIsNum" />
+    <result column="p_group_is_email" jdbcType="TINYINT" property="pGroupIsEmail" />
+    <result column="is_share" jdbcType="TINYINT" property="isShare" />
+    <result column="is_view" jdbcType="TINYINT" property="isView" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    project_id, yisoo_id, p_title, p_word, p_path, p_status, p_group_id, p_group_is_class, 
+    p_group_is_name, p_group_is_num, p_group_is_email, is_share, is_view, create_time, 
+    start_time, end_time
+  </sql>
+  <select id="selectByExample" parameterType="com.yisoo.bean.ProjectInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from projectinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from projectinfo
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from projectinfo
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisoo.bean.ProjectInfoExample">
+    delete from projectinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisoo.bean.ProjectInfo">
+    insert into projectinfo (project_id, yisoo_id, p_title, 
+      p_word, p_path, p_status, 
+      p_group_id, p_group_is_class, p_group_is_name, 
+      p_group_is_num, p_group_is_email, is_share, 
+      is_view, create_time, start_time, 
+      end_time)
+    values (#{projectId,jdbcType=INTEGER}, #{yisooId,jdbcType=INTEGER}, #{pTitle,jdbcType=VARCHAR}, 
+      #{pWord,jdbcType=VARCHAR}, #{pPath,jdbcType=VARCHAR}, #{pStatus,jdbcType=INTEGER}, 
+      #{pGroupId,jdbcType=INTEGER}, #{pGroupIsClass,jdbcType=TINYINT}, #{pGroupIsName,jdbcType=TINYINT}, 
+      #{pGroupIsNum,jdbcType=TINYINT}, #{pGroupIsEmail,jdbcType=TINYINT}, #{isShare,jdbcType=TINYINT}, 
+      #{isView,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisoo.bean.ProjectInfo">
+    insert into projectinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="yisooId != null">
+        yisoo_id,
+      </if>
+      <if test="pTitle != null">
+        p_title,
+      </if>
+      <if test="pWord != null">
+        p_word,
+      </if>
+      <if test="pPath != null">
+        p_path,
+      </if>
+      <if test="pStatus != null">
+        p_status,
+      </if>
+      <if test="pGroupId != null">
+        p_group_id,
+      </if>
+      <if test="pGroupIsClass != null">
+        p_group_is_class,
+      </if>
+      <if test="pGroupIsName != null">
+        p_group_is_name,
+      </if>
+      <if test="pGroupIsNum != null">
+        p_group_is_num,
+      </if>
+      <if test="pGroupIsEmail != null">
+        p_group_is_email,
+      </if>
+      <if test="isShare != null">
+        is_share,
+      </if>
+      <if test="isView != null">
+        is_view,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="yisooId != null">
+        #{yisooId,jdbcType=INTEGER},
+      </if>
+      <if test="pTitle != null">
+        #{pTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pWord != null">
+        #{pWord,jdbcType=VARCHAR},
+      </if>
+      <if test="pPath != null">
+        #{pPath,jdbcType=VARCHAR},
+      </if>
+      <if test="pStatus != null">
+        #{pStatus,jdbcType=INTEGER},
+      </if>
+      <if test="pGroupId != null">
+        #{pGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="pGroupIsClass != null">
+        #{pGroupIsClass,jdbcType=TINYINT},
+      </if>
+      <if test="pGroupIsName != null">
+        #{pGroupIsName,jdbcType=TINYINT},
+      </if>
+      <if test="pGroupIsNum != null">
+        #{pGroupIsNum,jdbcType=TINYINT},
+      </if>
+      <if test="pGroupIsEmail != null">
+        #{pGroupIsEmail,jdbcType=TINYINT},
+      </if>
+      <if test="isShare != null">
+        #{isShare,jdbcType=TINYINT},
+      </if>
+      <if test="isView != null">
+        #{isView,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisoo.bean.ProjectInfoExample" resultType="java.lang.Long">
+    select count(*) from projectinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update projectinfo
+    <set>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.yisooId != null">
+        yisoo_id = #{record.yisooId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pTitle != null">
+        p_title = #{record.pTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pWord != null">
+        p_word = #{record.pWord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pPath != null">
+        p_path = #{record.pPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pStatus != null">
+        p_status = #{record.pStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.pGroupId != null">
+        p_group_id = #{record.pGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pGroupIsClass != null">
+        p_group_is_class = #{record.pGroupIsClass,jdbcType=TINYINT},
+      </if>
+      <if test="record.pGroupIsName != null">
+        p_group_is_name = #{record.pGroupIsName,jdbcType=TINYINT},
+      </if>
+      <if test="record.pGroupIsNum != null">
+        p_group_is_num = #{record.pGroupIsNum,jdbcType=TINYINT},
+      </if>
+      <if test="record.pGroupIsEmail != null">
+        p_group_is_email = #{record.pGroupIsEmail,jdbcType=TINYINT},
+      </if>
+      <if test="record.isShare != null">
+        is_share = #{record.isShare,jdbcType=TINYINT},
+      </if>
+      <if test="record.isView != null">
+        is_view = #{record.isView,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update projectinfo
+    set project_id = #{record.projectId,jdbcType=INTEGER},
+      yisoo_id = #{record.yisooId,jdbcType=INTEGER},
+      p_title = #{record.pTitle,jdbcType=VARCHAR},
+      p_word = #{record.pWord,jdbcType=VARCHAR},
+      p_path = #{record.pPath,jdbcType=VARCHAR},
+      p_status = #{record.pStatus,jdbcType=INTEGER},
+      p_group_id = #{record.pGroupId,jdbcType=INTEGER},
+      p_group_is_class = #{record.pGroupIsClass,jdbcType=TINYINT},
+      p_group_is_name = #{record.pGroupIsName,jdbcType=TINYINT},
+      p_group_is_num = #{record.pGroupIsNum,jdbcType=TINYINT},
+      p_group_is_email = #{record.pGroupIsEmail,jdbcType=TINYINT},
+      is_share = #{record.isShare,jdbcType=TINYINT},
+      is_view = #{record.isView,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisoo.bean.ProjectInfo">
+    update projectinfo
+    <set>
+      <if test="yisooId != null">
+        yisoo_id = #{yisooId,jdbcType=INTEGER},
+      </if>
+      <if test="pTitle != null">
+        p_title = #{pTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pWord != null">
+        p_word = #{pWord,jdbcType=VARCHAR},
+      </if>
+      <if test="pPath != null">
+        p_path = #{pPath,jdbcType=VARCHAR},
+      </if>
+      <if test="pStatus != null">
+        p_status = #{pStatus,jdbcType=INTEGER},
+      </if>
+      <if test="pGroupId != null">
+        p_group_id = #{pGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="pGroupIsClass != null">
+        p_group_is_class = #{pGroupIsClass,jdbcType=TINYINT},
+      </if>
+      <if test="pGroupIsName != null">
+        p_group_is_name = #{pGroupIsName,jdbcType=TINYINT},
+      </if>
+      <if test="pGroupIsNum != null">
+        p_group_is_num = #{pGroupIsNum,jdbcType=TINYINT},
+      </if>
+      <if test="pGroupIsEmail != null">
+        p_group_is_email = #{pGroupIsEmail,jdbcType=TINYINT},
+      </if>
+      <if test="isShare != null">
+        is_share = #{isShare,jdbcType=TINYINT},
+      </if>
+      <if test="isView != null">
+        is_view = #{isView,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisoo.bean.ProjectInfo">
+    update projectinfo
+    set yisoo_id = #{yisooId,jdbcType=INTEGER},
+      p_title = #{pTitle,jdbcType=VARCHAR},
+      p_word = #{pWord,jdbcType=VARCHAR},
+      p_path = #{pPath,jdbcType=VARCHAR},
+      p_status = #{pStatus,jdbcType=INTEGER},
+      p_group_id = #{pGroupId,jdbcType=INTEGER},
+      p_group_is_class = #{pGroupIsClass,jdbcType=TINYINT},
+      p_group_is_name = #{pGroupIsName,jdbcType=TINYINT},
+      p_group_is_num = #{pGroupIsNum,jdbcType=TINYINT},
+      p_group_is_email = #{pGroupIsEmail,jdbcType=TINYINT},
+      is_share = #{isShare,jdbcType=TINYINT},
+      is_view = #{isView,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP}
+    where project_id = #{projectId,jdbcType=INTEGER}
+  </update>
+</mapper>
