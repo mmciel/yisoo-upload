@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yisoo.dao.GroupInfoMapper">
   <resultMap id="BaseResultMap" type="com.yisoo.bean.GroupInfo">
+    <id column="g_id" jdbcType="INTEGER" property="gId" />
     <result column="group_id" jdbcType="INTEGER" property="groupId" />
     <result column="g_number" jdbcType="VARCHAR" property="gNumber" />
     <result column="g_name" jdbcType="VARCHAR" property="gName" />
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    group_id, g_number, g_name, g_group, g_email
+    g_id, group_id, g_number, g_name, g_group, g_email
   </sql>
   <select id="selectByExample" parameterType="com.yisoo.bean.GroupInfoExample" resultMap="BaseResultMap">
     select
@@ -83,6 +84,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from groupinfo
+    where g_id = #{gId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from groupinfo
+    where g_id = #{gId,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.yisoo.bean.GroupInfoExample">
     delete from groupinfo
     <if test="_parameter != null">
@@ -90,14 +101,19 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yisoo.bean.GroupInfo">
-    insert into groupinfo (group_id, g_number, g_name, 
-      g_group, g_email)
-    values (#{groupId,jdbcType=INTEGER}, #{gNumber,jdbcType=VARCHAR}, #{gName,jdbcType=VARCHAR}, 
-      #{gGroup,jdbcType=VARCHAR}, #{gEmail,jdbcType=VARCHAR})
+    insert into groupinfo (g_id, group_id, g_number, 
+      g_name, g_group, g_email
+      )
+    values (#{gId,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, #{gNumber,jdbcType=VARCHAR}, 
+      #{gName,jdbcType=VARCHAR}, #{gGroup,jdbcType=VARCHAR}, #{gEmail,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yisoo.bean.GroupInfo">
     insert into groupinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gId != null">
+        g_id,
+      </if>
       <if test="groupId != null">
         group_id,
       </if>
@@ -115,6 +131,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gId != null">
+        #{gId,jdbcType=INTEGER},
+      </if>
       <if test="groupId != null">
         #{groupId,jdbcType=INTEGER},
       </if>
@@ -141,6 +160,9 @@
   <update id="updateByExampleSelective" parameterType="map">
     update groupinfo
     <set>
+      <if test="record.gId != null">
+        g_id = #{record.gId,jdbcType=INTEGER},
+      </if>
       <if test="record.groupId != null">
         group_id = #{record.groupId,jdbcType=INTEGER},
       </if>
@@ -163,7 +185,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update groupinfo
-    set group_id = #{record.groupId,jdbcType=INTEGER},
+    set g_id = #{record.gId,jdbcType=INTEGER},
+      group_id = #{record.groupId,jdbcType=INTEGER},
       g_number = #{record.gNumber,jdbcType=VARCHAR},
       g_name = #{record.gName,jdbcType=VARCHAR},
       g_group = #{record.gGroup,jdbcType=VARCHAR},
@@ -171,5 +194,35 @@
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisoo.bean.GroupInfo">
+    update groupinfo
+    <set>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="gNumber != null">
+        g_number = #{gNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="gName != null">
+        g_name = #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gGroup != null">
+        g_group = #{gGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="gEmail != null">
+        g_email = #{gEmail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where g_id = #{gId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisoo.bean.GroupInfo">
+    update groupinfo
+    set group_id = #{groupId,jdbcType=INTEGER},
+      g_number = #{gNumber,jdbcType=VARCHAR},
+      g_name = #{gName,jdbcType=VARCHAR},
+      g_group = #{gGroup,jdbcType=VARCHAR},
+      g_email = #{gEmail,jdbcType=VARCHAR}
+    where g_id = #{gId,jdbcType=INTEGER}
   </update>
 </mapper>

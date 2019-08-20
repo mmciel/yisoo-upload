@@ -18,6 +18,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="is_remove" jdbcType="INTEGER" property="isRemove" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -80,7 +81,7 @@
   <sql id="Base_Column_List">
     project_id, yisoo_id, p_title, p_word, p_path, p_status, p_group_id, p_group_is_class, 
     p_group_is_name, p_group_is_num, p_group_is_email, is_share, is_view, create_time, 
-    start_time, end_time
+    start_time, end_time, is_remove
   </sql>
   <select id="selectByExample" parameterType="com.yisoo.bean.ProjectInfoExample" resultMap="BaseResultMap">
     select
@@ -118,13 +119,13 @@
       p_group_id, p_group_is_class, p_group_is_name, 
       p_group_is_num, p_group_is_email, is_share, 
       is_view, create_time, start_time, 
-      end_time)
+      end_time, is_remove)
     values (#{projectId,jdbcType=INTEGER}, #{yisooId,jdbcType=INTEGER}, #{pTitle,jdbcType=VARCHAR}, 
       #{pWord,jdbcType=VARCHAR}, #{pPath,jdbcType=VARCHAR}, #{pStatus,jdbcType=INTEGER}, 
       #{pGroupId,jdbcType=INTEGER}, #{pGroupIsClass,jdbcType=TINYINT}, #{pGroupIsName,jdbcType=TINYINT}, 
       #{pGroupIsNum,jdbcType=TINYINT}, #{pGroupIsEmail,jdbcType=TINYINT}, #{isShare,jdbcType=TINYINT}, 
       #{isView,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP})
+      #{endTime,jdbcType=TIMESTAMP}, #{isRemove,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yisoo.bean.ProjectInfo">
     insert into projectinfo
@@ -177,6 +178,9 @@
       <if test="endTime != null">
         end_time,
       </if>
+      <if test="isRemove != null">
+        is_remove,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="projectId != null">
@@ -226,6 +230,9 @@
       </if>
       <if test="endTime != null">
         #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRemove != null">
+        #{isRemove,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -286,6 +293,9 @@
       <if test="record.endTime != null">
         end_time = #{record.endTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.isRemove != null">
+        is_remove = #{record.isRemove,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -308,7 +318,8 @@
       is_view = #{record.isView,jdbcType=TINYINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       start_time = #{record.startTime,jdbcType=TIMESTAMP},
-      end_time = #{record.endTime,jdbcType=TIMESTAMP}
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      is_remove = #{record.isRemove,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -361,6 +372,9 @@
       <if test="endTime != null">
         end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="isRemove != null">
+        is_remove = #{isRemove,jdbcType=INTEGER},
+      </if>
     </set>
     where project_id = #{projectId,jdbcType=INTEGER}
   </update>
@@ -380,7 +394,8 @@
       is_view = #{isView,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP}
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      is_remove = #{isRemove,jdbcType=INTEGER}
     where project_id = #{projectId,jdbcType=INTEGER}
   </update>
 </mapper>

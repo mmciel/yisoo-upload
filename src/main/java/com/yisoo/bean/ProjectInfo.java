@@ -35,6 +35,8 @@ public class ProjectInfo {
 
     private Date endTime;
 
+    private Integer isRemove;
+
     public Integer getProjectId() {
         return projectId;
     }
@@ -163,25 +165,11 @@ public class ProjectInfo {
         this.endTime = endTime;
     }
 
-    @Override
-    public String toString() {
-        return "ProjectInfo{" +
-                "projectId=" + projectId +
-                ", yisooId=" + yisooId +
-                ", pTitle='" + pTitle + '\'' +
-                ", pWord='" + pWord + '\'' +
-                ", pPath='" + pPath + '\'' +
-                ", pStatus=" + pStatus +
-                ", pGroupId=" + pGroupId +
-                ", pGroupIsClass=" + pGroupIsClass +
-                ", pGroupIsName=" + pGroupIsName +
-                ", pGroupIsNum=" + pGroupIsNum +
-                ", pGroupIsEmail=" + pGroupIsEmail +
-                ", isShare=" + isShare +
-                ", isView=" + isView +
-                ", createTime=" + createTime +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                '}';
+    public Integer getIsRemove() {
+        return isRemove;
+    }
+
+    public void setIsRemove(Integer isRemove) {
+        this.isRemove = isRemove;
     }
 }

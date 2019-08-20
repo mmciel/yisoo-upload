@@ -62,7 +62,7 @@
                         </ul>
                         <!-- 右侧的导航项目 -->
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="./login.jsp"
+                            <li><a href="./login.jsp" id="login-reg-btn"
                             class="button button-glow button-border button-rounded button-highlight"
                             >登录·注册</a></li>
                         </ul>
@@ -457,6 +457,14 @@
 <script src="${APP_PATH }/js/zui.min.js"></script>
 <!--    引入主页必要js -->
 <script src="${APP_PATH }/js/home.js"></script>
-
+<script>
+    var yisooid = "${sessionScope.yisooid}";
+</script>
+<script>
+    if(yisooid !=undefined){
+        $("#login-reg-btn").text("个人中心");
+        $("#login-reg-btn").attr('href','./admin.jsp');
+    }
+</script>
 </body>
 </html>

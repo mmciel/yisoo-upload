@@ -13,7 +13,10 @@ import java.util.List;
 public class GroupDataService {
     @Autowired
     GroupDataMapper groupDataMapper;
-
+//根据主键获取数据
+    public GroupData getGroupData(Integer groupid){
+        return groupDataMapper.selectByPrimaryKey(groupid);
+    }
 //    根据yisooid获取所有数据项
     public List<GroupData> getGroupDataListByYisooId(String yisooid){
         GroupDataExample groupDataExample = new GroupDataExample();

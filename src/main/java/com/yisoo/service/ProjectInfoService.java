@@ -2,6 +2,7 @@ package com.yisoo.service;
 
 import com.yisoo.bean.ProjectInfo;
 import com.yisoo.bean.ProjectInfoExample;
+import com.yisoo.bean.ProjectMsg;
 import com.yisoo.dao.ProjectInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,15 @@ public class ProjectInfoService {
 //    通过主键获取数据项
     public ProjectInfo getProjectInfoByKey(Integer projectid){
         return projectInfoMapper.selectByPrimaryKey(projectid);
+    }
+//    通过对象获取数据项
+    public ProjectInfo getProjectInfoByProjectInfo(ProjectInfo projectInfo){
+        ProjectInfoExample projectInfoExample = new ProjectInfoExample();
+        ProjectInfoExample.Criteria criteria = projectInfoExample.createCriteria();
+        criteria.andYisooIdEqualTo(projectInfo.getYisooId());
+        criteria.andPTitleEqualTo(projectInfo.getpTitle());
+        List<ProjectInfo> projectInfos = projectInfoMapper.selectByExample(projectInfoExample);
+        return projectInfos.get(0);
     }
 //    加入数据项
     public void setProjectInfo(ProjectInfo projectInfo){

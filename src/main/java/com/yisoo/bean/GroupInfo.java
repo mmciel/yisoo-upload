@@ -1,6 +1,8 @@
 package com.yisoo.bean;
 
 public class GroupInfo {
+    private Integer gId;
+
     private Integer groupId;
 
     private String gNumber;
@@ -10,6 +12,14 @@ public class GroupInfo {
     private String gGroup;
 
     private String gEmail;
+
+    public Integer getgId() {
+        return gId;
+    }
+
+    public void setgId(Integer gId) {
+        this.gId = gId;
+    }
 
     public Integer getGroupId() {
         return groupId;
@@ -49,16 +59,5 @@ public class GroupInfo {
 
     public void setgEmail(String gEmail) {
         this.gEmail = gEmail == null ? null : gEmail.trim();
-    }
-
-    @Override
-    public String toString() {
-        return "GroupInfo{" +
-                "groupId=" + groupId +
-                ", gNumber='" + gNumber + '\'' +
-                ", gName='" + gName + '\'' +
-                ", gGroup='" + gGroup + '\'' +
-                ", gEmail='" + gEmail + '\'' +
-                '}';
     }
 }

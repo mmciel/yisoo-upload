@@ -106,7 +106,6 @@
                             }
                         }
                     });
-                    obj.del();
                     layer.close(index);
                 });
             } else if (obj.event === 'viewGroup') {

@@ -62,13 +62,13 @@
       <div class="layui-inline">
         <label class="layui-form-label">开始时间</label>
         <div class="layui-input-inline">
-          <input type="text" class="layui-input" id="startTime" placeholder="">
+          <input type="text" class="layui-input" id="startTime" name="startTime" placeholder="">
         </div>
       </div>
       <div class="layui-inline">
         <label class="layui-form-label">结束时间</label>
         <div class="layui-input-inline">
-          <input type="text" class="layui-input" id="endTime" placeholder="">
+          <input type="text" class="layui-input" id="endTime" name="endTime" placeholder="">
         </div>
       </div>
     </div>

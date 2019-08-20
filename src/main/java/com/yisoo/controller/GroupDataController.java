@@ -30,6 +30,30 @@ public class GroupDataController {
     GroupDataService groupDataService;
     @Autowired
     GroupInfoService groupInfoService;
+//    根据名单id获取名单数据
+    @RequestMapping(value = "group/get/data",method = RequestMethod.GET)
+    @ResponseBody
+    public GroupMsg getGroupByGroupId(
+            @RequestParam("groupid")Integer groupid,
+            @RequestParam("yisooid")Integer yisooid
+    ){
+        if(groupid == 0){
+//            没有用名单
+            GroupMsg msg = GroupMsg.getSuccess();
+            GroupData groupData = new GroupData();
+            groupData.setgName("无名单");
+            msg.setGroupData(groupData);
+            msg.setResult("200");
+            return msg;
+        }else{
+            GroupMsg msg = GroupMsg.getSuccess();
+            msg.setGroupData(groupDataService.getGroupData(groupid));
+            msg.setResult("200");
+            msg.setGroupid(String.valueOf(groupid));
+            msg.setYisooid(String.valueOf(yisooid));
+            return msg;
+        }
+    }
 
 //    查看所有名单
     @RequestMapping(value = "group/view/group",method = RequestMethod.GET)
@@ -38,7 +62,6 @@ public class GroupDataController {
             @RequestParam("yisooid")String yisooid
     ){
         List<GroupData> list =groupDataService.getGroupDataListByYisooId(yisooid);
-
         GroupDataTableMsg groupDataTableMsg = GroupDataTableMsg.success();
         groupDataTableMsg.setData(list);
         System.out.println(list);
