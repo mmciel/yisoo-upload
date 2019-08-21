@@ -18,3 +18,33 @@
 .text-color-black{
     color:black;
 }
+.upload_main_bg00{
+    background-image: url(../img/u_bg00.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    /* opacity:0.5; */
+}
+.upload_main_bg01{
+    background-image: url(../img/u_bg01.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    /* opacity:0.5; */
+}
+.upload_main_bg02{
+    background-image: url(../img/u_bg02.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+}
+.upload_main_bg03{
+    background-image: url(../img/u_bg03.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    color:white;
+}
+.white-text{
+    color:white;
+}

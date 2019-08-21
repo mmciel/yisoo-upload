@@ -62,12 +62,12 @@
                 <div class="collapse navbar-collapse navbar-collapse-example">
                     <!-- 一般导航项目 -->
                     <ul class="nav navbar-nav nav-secondary navbar-brand-text-sm">
-                        <li><a href="./">主页</a></li>
+                        <li><a href="#">主页</a></li>
                         <li><a href="your/nice/url">文件采集</a></li>
-                        <li class="active"><a href="#">文件空投</a></li>
-                        <li><a href="your/nice/url">更新</a></li>
-                        <li><a href="your/nice/url">开源</a></li>
-                        <li><a href="your/nice/url">关于</a></li>
+                        <li><a class="active" href="./air.jsp">文件空投</a></li>
+                        <li><a href="your/nice/url">系统更新</a></li>
+                        <li><a href="your/nice/url">开源项目</a></li>
+                        <li><a href="your/nice/url">关于YiSoo</a></li>
                     </ul>
                     <!-- 右侧的导航项目 -->
                     <!-- <ul class="nav navbar-nav nav-pills navbar-right">
@@ -123,7 +123,7 @@
                                 <input type="text" class="form-control form-focus" id="airLong" placeholder="">
                             </div>
                         </form>
-                        <div id='air-uploader' class="uploader" data-ride="uploader" data-url="#">
+                        <div id="air-uploader" class="uploader" data-ride="uploader" data-url="#">
                             <div class="uploader-message text-center">
                                 <div class="content"></div>
                                 <button type="button" class="close">×</button>

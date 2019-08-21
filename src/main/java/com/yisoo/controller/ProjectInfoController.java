@@ -1,9 +1,11 @@
 package com.yisoo.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.yisoo.bean.GroupInfo;
 import com.yisoo.bean.ProjectInfo;
 import com.yisoo.bean.ProjectInfoTableMsg;
 import com.yisoo.bean.ProjectMsg;
+import com.yisoo.service.GroupInfoService;
 import com.yisoo.service.ProjectInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,43 @@ import java.util.*;
 public class ProjectInfoController {
     @Autowired
     ProjectInfoService projectInfoService;
+    @Autowired
+    GroupInfoService groupInfoService;
+//    show页面初始化
+@RequestMapping(value = "show/init", method = RequestMethod.GET)
+@ResponseBody
+public ProjectMsg getProjectInfo(
+        @RequestParam("projectid") Integer projectid
+) {
+    ProjectInfo projectInfo = projectInfoService.getProjectInfoByKey(projectid);
+    List<GroupInfo> groupInfo = groupInfoService.getGroupInfo(projectInfo.getpGroupId());
+    ProjectMsg msg = new ProjectMsg();
+    Date nowTime = new Date();
+    if(projectInfo.getpStatus() == 0){
+        msg.setResult("300");
+        msg.setMessage("项目已经被管理员关闭");
+        msg.setData(projectInfo);
+        msg.setGroups(groupInfo);
+    }
+    else if(nowTime.before(projectInfo.getStartTime())){
+        msg.setResult("300");
+        msg.setMessage("项目未开始");
+        msg.setData(projectInfo);
+        msg.setGroups(groupInfo);
+    }
+    else if(nowTime.after(projectInfo.getEndTime())){
+        msg.setResult("300");
+        msg.setMessage("项目已经截止");
+        msg.setData(projectInfo);
+        msg.setGroups(groupInfo);
+    }else{
+        msg.setResult("200");
+        msg.setMessage("项目正常");
+        msg.setData(projectInfo);
+        msg.setGroups(groupInfo);
+    }
+    return msg;
+}
 
     //  根据groupid获取数据
     @RequestMapping(value = "pro/get/data", method = RequestMethod.GET)
@@ -82,16 +121,8 @@ public class ProjectInfoController {
     @RequestMapping(value = "pro/add", method = RequestMethod.POST)
     @ResponseBody
     public ProjectMsg setProjectInfo(
-            ProjectInfo projectInfo
-    ) {
-//        ProjectInfo{projectId=null,
-//        yisooId=null, pTitle='null', pWord='null', pPath='null',
-//        pStatus=null, pGroupId=null, pGroupIsClass=null, pGroupIsName=null,
-//        pGroupIsNum=null, pGroupIsEmail=null, isShare=null,
-//        isView=null, createTime=null, startTime=null, endTime=null}
-//        System.out.println(projectInfo);
-//        return null;
-        System.out.println(projectInfo);
+            ProjectInfo projectInfo) {
+
         projectInfoService.setProjectInfo(projectInfo);
         ProjectInfo projectInfoAndProjectId = projectInfoService.getProjectInfoByProjectInfo(projectInfo);
         projectInfoAndProjectId.setCreateTime(new Date());

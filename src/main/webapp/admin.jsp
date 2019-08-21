@@ -169,26 +169,30 @@
     if(yisooid === "" || userid ===""){
         window.location.href = "login.jsp";
         // console.log("o");
+
     }
-    $.ajax({
-        url:"user/admincheck",
-        type:"post",
-        data:{
-            "yisooid":yisooid,
-            "userid":userid
-        },
-        success:function (result) {
-            if(result.result === 400){
-                window.location.href = "login.jsp";
-                // console.log(result);
-            }else{
-            //    写入用户名
-                $("#username-label").text(result.username);
-                console.log(result);
-                
+    else{
+        $.ajax({
+            url:"user/admincheck",
+            type:"post",
+            data:{
+                "yisooid":yisooid,
+                "userid":userid
+            },
+            success:function (result) {
+                if(result.result === 400){
+                    window.location.href = "login.jsp";
+                    // console.log(result);
+                }else{
+                    //    写入用户名
+                    $("#username-label").text(result.username);
+                    console.log(result);
+
+                }
             }
-        }
-    });
+        });
+    }
+
 </script>
 </body>
 </html>

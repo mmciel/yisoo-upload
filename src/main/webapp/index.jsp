@@ -56,9 +56,9 @@
                             <li class="active"><a href="#">主页</a></li>
                             <li><a href="your/nice/url">文件采集</a></li>
                             <li><a href="./air.jsp">文件空投</a></li>
-                            <li><a href="your/nice/url">更新</a></li>
-                            <li><a href="your/nice/url">开源</a></li>
-                            <li><a href="your/nice/url">关于</a></li>
+                            <li><a href="your/nice/url">系统更新</a></li>
+                            <li><a href="your/nice/url">开源项目</a></li>
+                            <li><a href="your/nice/url">关于YiSoo</a></li>
                         </ul>
                         <!-- 右侧的导航项目 -->
                         <ul class="nav navbar-nav navbar-right">

@@ -376,6 +376,9 @@
                 }
               });
               $('#myModal').modal('show');
+          }else if(obj.event === 'viewProject') {
+              // window.location.href = "./ushow.jsp"+"?projectid="+data.projectId;
+              window.open("./ushow.jsp" + "?projectid=" + data.projectId);
           }
         });
             //监听提交

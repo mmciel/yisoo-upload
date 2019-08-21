@@ -119,6 +119,9 @@
             data.field.pGroupIsNum === "on" ? data.field.pGroupIsNum = 1 : data.field.pGroupIsNum = 0;
             data.field.pGroupIsEmail === "on" ? data.field.pGroupIsEmail = 1 : data.field.pGroupIsEmail = 0;
             data.field.isView === "on" ? data.field.isView = 1 : data.field.isView = 0;
+            // data.field.isRemove =0;
+
+            // console.log(data.field);
             $.ajax({
                 url:"pro/add",
                 type:"post",

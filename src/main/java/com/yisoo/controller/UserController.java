@@ -75,12 +75,13 @@ public class UserController {
     @RequestMapping(value = "user/admincheck",method = RequestMethod.POST)
     @ResponseBody
     public UserMsg checkAdmin(
-            @RequestParam("yisooid")String yisooid,
+            @RequestParam("yisooid")Integer yisooid,
             @RequestParam("userid")String userid
     ){
-//        System.out.println(yisooid);
+//
+//        System.out.println("test"+yisooid);
 //        System.out.println(userid);
-        User user = userService.getUserByYisoo(Integer.valueOf(yisooid));
+        User user = userService.getUserByYisoo(yisooid);
 //        System.out.println(user.getLoginLastTime());
         if(user.getUserId().equals(userid)){
 //            校验成功

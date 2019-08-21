@@ -1,5 +1,7 @@
 package com.yisoo.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class ProjectInfo {
@@ -28,11 +30,11 @@ public class ProjectInfo {
     private Byte isShare;
 
     private Byte isView;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date startTime;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
     private Integer isRemove;
@@ -171,5 +173,28 @@ public class ProjectInfo {
 
     public void setIsRemove(Integer isRemove) {
         this.isRemove = isRemove;
+    }
+
+    @Override
+    public String toString() {
+        return "ProjectInfo{" +
+                "projectId=" + projectId +
+                ", yisooId=" + yisooId +
+                ", pTitle='" + pTitle + '\'' +
+                ", pWord='" + pWord + '\'' +
+                ", pPath='" + pPath + '\'' +
+                ", pStatus=" + pStatus +
+                ", pGroupId=" + pGroupId +
+                ", pGroupIsClass=" + pGroupIsClass +
+                ", pGroupIsName=" + pGroupIsName +
+                ", pGroupIsNum=" + pGroupIsNum +
+                ", pGroupIsEmail=" + pGroupIsEmail +
+                ", isShare=" + isShare +
+                ", isView=" + isView +
+                ", createTime=" + createTime +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", isRemove=" + isRemove +
+                '}';
     }
 }
