@@ -107,7 +107,9 @@
                                 <input class="filter-title" type="text" readonly placeholder="请选择学号"/>
                                 <i class="icon-select icon-filter-arrow"></i>
                             </div>
-                            <select id="gId" name="gId"></select><br>
+                            <select id="gId" name="gId">
+                                <option value="-1" selected>请选择</option>
+                            </select><br>
                         </div>
                     </div>
                 </div>
@@ -128,10 +130,34 @@
     <script src="${APP_PATH}/js/zui.min.js"></script>
     <script type="text/javascript" src="${APP_PATH}/js/selectFilter.js"></script>
     <script src="${APP_PATH}/js/zui.uploader.js"></script>
+<script type="text/javascript">
+    var file_id;
+    var mult_data = {
+        "projectid":"-1",
+        "gid":"-1"
+    }
+    $('#file_upload').uploader({
+        url: '${APP_PATH}/file/upload/stream',
+        limitFilesCount: 1,
+        removeUploaded: true,
+        chunk_size: "0",
+        multipart_params:mult_data,
+        filters: {
+            max_file_size: '50mb',
+            prevent_duplicates: true
+        },
+        onFileUploaded: function (file, responseObject) {
+            // u_msg = $.parseJSON(responseObject.response);
+            // file_id = u_msg.file_id;
+            // showMsg(u_msg.message, 'success');
+        }
+    });
+</script>
     <script>
 
         var pdata;
         var gdata;
+
         (function ($) {
             $.getUrlParam = function (name) {
                 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -194,15 +220,15 @@
             //    有问题
                 showMsg("无法提交","danger");
             }else{
-            //    正常提交
-                $.ajax({
-                    url:"show/data",
-                    type:"post",
-                    // data:{
-                    //     "fileid":file_id,
-                    //     "projectid":pdata.projectId,
-                    // }
-                });
+                if($("#gId").val() === "-1"){
+                    showMsg("请选择提交者！","danger");
+                }else{
+                    mult_data.gid = $("#gId").val();
+                    mult_data.projectid = pdata.projectId;
+                    // u_uploader.multipart_params.gid = $("#gId").val();
+                    $('#file_upload').data('zui.uploader').start();
+                }
+
             }
         });
         //把当前时间转成字符串
@@ -237,31 +263,6 @@
             // document.write(clock);
             return clock;
         }
-    </script>
-    <script type="text/javascript">
-        var file_id;
-        $('#file_upload').uploader({
-            url: '${APP_PATH}/show/upload',
-            limitFilesCount: 1,
-            removeUploaded: true,
-            chunk_size: 0,
-            filters: {
-                max_file_size: '50mb',
-                prevent_duplicates: true
-            },
-            onFileUploaded: function (file, responseObject) {
-                u_msg = $.parseJSON(responseObject.response);
-                file_id = u_msg.file_id;
-                showMsg(u_msg.message, 'success');
-            }
-        });
-        // //这里是初始化
-        // $('.filter-box').selectFilter({
-        //     callBack : function (val){
-        //         //返回选择的值
-        //         console.log(val+'-是返回的值')
-        //     }
-        // });
     </script>
     <script>
         layui.use(['util','carousel','laydate', 'layer'], function () {

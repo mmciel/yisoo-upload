@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisoo.dao.FileInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yisoo.bean.FileInfo">
+    <id column="file_id" jdbcType="INTEGER" property="fileId" />
+    <result column="file_perm" jdbcType="INTEGER" property="filePerm" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="file_md5" jdbcType="VARCHAR" property="fileMd5" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_parent" jdbcType="VARCHAR" property="fileParent" />
+    <result column="file_size" jdbcType="DOUBLE" property="fileSize" />
+    <result column="file_create" jdbcType="TIMESTAMP" property="fileCreate" />
+    <result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    file_id, file_perm, project_id, file_md5, file_name, file_parent, file_size, file_create, 
+    file_suffix
+  </sql>
+  <select id="selectByExample" parameterType="com.yisoo.bean.FileInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fileinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fileinfo
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from fileinfo
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisoo.bean.FileInfoExample">
+    delete from fileinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisoo.bean.FileInfo">
+    insert into fileinfo (file_id, file_perm, project_id, 
+      file_md5, file_name, file_parent, 
+      file_size, file_create, file_suffix
+      )
+    values (#{fileId,jdbcType=INTEGER}, #{filePerm,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+      #{fileMd5,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileParent,jdbcType=VARCHAR}, 
+      #{fileSize,jdbcType=DOUBLE}, #{fileCreate,jdbcType=TIMESTAMP}, #{fileSuffix,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisoo.bean.FileInfo">
+    insert into fileinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        file_id,
+      </if>
+      <if test="filePerm != null">
+        file_perm,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="fileMd5 != null">
+        file_md5,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileParent != null">
+        file_parent,
+      </if>
+      <if test="fileSize != null">
+        file_size,
+      </if>
+      <if test="fileCreate != null">
+        file_create,
+      </if>
+      <if test="fileSuffix != null">
+        file_suffix,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="filePerm != null">
+        #{filePerm,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="fileMd5 != null">
+        #{fileMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileParent != null">
+        #{fileParent,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=DOUBLE},
+      </if>
+      <if test="fileCreate != null">
+        #{fileCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileSuffix != null">
+        #{fileSuffix,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisoo.bean.FileInfoExample" resultType="java.lang.Long">
+    select count(*) from fileinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update fileinfo
+    <set>
+      <if test="record.fileId != null">
+        file_id = #{record.fileId,jdbcType=INTEGER},
+      </if>
+      <if test="record.filePerm != null">
+        file_perm = #{record.filePerm,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileMd5 != null">
+        file_md5 = #{record.fileMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null">
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileParent != null">
+        file_parent = #{record.fileParent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSize != null">
+        file_size = #{record.fileSize,jdbcType=DOUBLE},
+      </if>
+      <if test="record.fileCreate != null">
+        file_create = #{record.fileCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fileSuffix != null">
+        file_suffix = #{record.fileSuffix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update fileinfo
+    set file_id = #{record.fileId,jdbcType=INTEGER},
+      file_perm = #{record.filePerm,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      file_md5 = #{record.fileMd5,jdbcType=VARCHAR},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      file_parent = #{record.fileParent,jdbcType=VARCHAR},
+      file_size = #{record.fileSize,jdbcType=DOUBLE},
+      file_create = #{record.fileCreate,jdbcType=TIMESTAMP},
+      file_suffix = #{record.fileSuffix,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisoo.bean.FileInfo">
+    update fileinfo
+    <set>
+      <if test="filePerm != null">
+        file_perm = #{filePerm,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="fileMd5 != null">
+        file_md5 = #{fileMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileParent != null">
+        file_parent = #{fileParent,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        file_size = #{fileSize,jdbcType=DOUBLE},
+      </if>
+      <if test="fileCreate != null">
+        file_create = #{fileCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileSuffix != null">
+        file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisoo.bean.FileInfo">
+    update fileinfo
+    set file_perm = #{filePerm,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=INTEGER},
+      file_md5 = #{fileMd5,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_parent = #{fileParent,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=DOUBLE},
+      file_create = #{fileCreate,jdbcType=TIMESTAMP},
+      file_suffix = #{fileSuffix,jdbcType=VARCHAR}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+</mapper>

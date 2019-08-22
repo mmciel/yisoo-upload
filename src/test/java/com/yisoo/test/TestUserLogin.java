@@ -1,5 +1,7 @@
 package com.yisoo.test;
 
+import org.junit.Test;
+
 public class TestUserLogin {
 //    @Test
 //    public void s(){
@@ -9,4 +11,10 @@ public class TestUserLogin {
 //        System.out.println(loginMsg.getEmail());
 //
 //    }
+    @Test
+    public void s(){
+        String oldName = "sadas.das";
+        String suffix = oldName.substring(oldName.lastIndexOf("."));
+        System.out.println(suffix);
+    }
 }

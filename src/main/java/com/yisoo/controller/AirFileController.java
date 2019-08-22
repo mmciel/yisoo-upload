@@ -127,7 +127,6 @@ public class AirFileController {
         airLogService.addAirLog(airLog);
 
         return uploadMsg;
-
     }
 
     private static AirFile FileToAirFile(String path,String fileName){

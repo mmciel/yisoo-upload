@@ -12,6 +12,10 @@ import java.util.List;
 public class GroupInfoService {
     @Autowired
     GroupInfoMapper groupInfoMapper;
+//    根据主键获取对象
+    public  GroupInfo get(Integer gId){
+        return groupInfoMapper.selectByPrimaryKey(gId);
+    }
 //   根据groupid获取all
     public List<GroupInfo> getGroupInfo(Integer groupid){
         GroupInfoExample groupInfoExample = new GroupInfoExample();
