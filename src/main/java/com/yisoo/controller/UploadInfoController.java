@@ -66,9 +66,14 @@ public class UploadInfoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        FileMsg success = FileMsg.success();
-        success.setMessage("上传完成啦");
-        return success;
+//        写入提交日志
+        new
+//        写入文件日志
+
+//        完成文件备份
+//        FileMsg success = FileMsg.success();
+//        success.setMessage("上传完成啦");
+//        return success;
 
     }
 }

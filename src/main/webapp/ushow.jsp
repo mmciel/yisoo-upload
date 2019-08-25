@@ -124,7 +124,6 @@
         </div>
     </div>
 </div>
-    <!-- 条目中可以是任意内容，如：<img src=""> -->
     <script src="${APP_PATH}/js/jquery.min.js"></script>
     <script src="${APP_PATH}/lib/layui/layui.js"></script>
     <script src="${APP_PATH}/js/zui.min.js"></script>
