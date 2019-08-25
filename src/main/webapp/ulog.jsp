@@ -164,7 +164,6 @@
             showMsg(u_msg.message, 'success');
             layer.confirm('提交成功！是否查看提交日志？', {icon: 3, title: '询问！'}, function (index) {
                 //跳转到
-                window.location.href = './ulog.jsp?projectid='+projectid;
                 layer.close(index);
             });
         }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import java.util.List;
+
 @Service
 public class UploadInfoService {
     @Autowired
@@ -35,6 +37,17 @@ public class UploadInfoService {
         criteria.andGIdEqualTo(gId);
         return uploadInfoMapper.selectByExample(example).get(0);
 
+    }
+    public UploadInfo checkOldUpload(Integer projectid,Integer gid){
+        UploadInfoExample example = new UploadInfoExample();
+        UploadInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andFileIdEqualTo(projectid);
+        criteria.andGIdEqualTo(gid);
+        List<UploadInfo> uploadInfos = uploadInfoMapper.selectByExample(example);
+        if(uploadInfos.size() == 0){
+            return  null;
+        }
+        return uploadInfos.get(uploadInfos.size()-1);
     }
 
 

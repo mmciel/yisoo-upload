@@ -13,8 +13,8 @@ public class TestUserLogin {
 //    }
     @Test
     public void s(){
-        String oldName = "sadas.das";
-        String suffix = oldName.substring(oldName.lastIndexOf("."));
+        String oldName = "D:\\PublicCode\\IDEAWorkspace\\yisoo\\target\\yisoo\\project-files\\yid-3-pid-9";
+        String suffix = oldName.substring(0,oldName.lastIndexOf("\\"));
         System.out.println(suffix);
     }
 }
