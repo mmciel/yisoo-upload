@@ -12,7 +12,64 @@
     <link rel="stylesheet" href="${APP_PATH}/css/style.css">
     <link rel="stylesheet" href="https://www.bootcss.com/p/buttons/css/buttons.css">
 
-
+    <style>
+        .box {
+            width: 300px;
+            padding: 40px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #191919;
+            text-align: center;
+        }
+        .box h1 {
+            color: white;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .box input[type='text'],
+        .box input[type='password'] {
+            border: 0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #3498db;
+            padding: 14px 10px;
+            width: 200px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.25s;
+        }
+        .box input[type='text']:focus,
+        .box input[type='password']:focus {
+            width: 280px;
+            border-color: #2ecc71;
+        }
+        .submit {
+            border: 0;
+            background: none;
+            margin: 20px auto;
+            margin-top: 0;
+            display: inline-block;
+            text-align: center;
+            border: 2px solid #3498db;
+            padding: 10px 40px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.25s;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .submit:hover {
+            background: #2ecc71;
+            border-color: #2ecc71;
+        }
+    </style>
 </head>
 <body>
 <div class="layui-carousel" id="test1">
@@ -46,8 +103,8 @@
                         </ul>
                         <ul class="nav navbar-nav nav-secondary navbar-right">
                             <li><a href="" id="btnUpload">文件上传</a></li>
-                            <li class="active"><a href="" id="btnLog">提交日志</a></li>
-                            <li ><a href="" id="btnSolve">快捷管理</a></li>
+                            <li><a href="" id="btnLog">提交日志</a></li>
+                            <li class="active"><a href="" id="btnSolve">快捷管理</a></li>
                         </ul>
                     </div><!-- END .navbar-collapse -->
                 </div>
@@ -64,30 +121,35 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <i class="layui-icon">&#xe770;</i>&nbsp;<span id="GroupSpan"></span>
                         &nbsp;&nbsp;&nbsp;&nbsp;
+                        <%--                        <i class="layui-icon">&#xe672;</i>&nbsp;<a class="layui-badge" id="SolveAdmin" style="text-decoration: none">未登录</a>--%>
+                        <button class="layui-btn layui-btn-xs layui-btn-danger" id="SolveAdmin"><i class="layui-icon">&#xe672;</i>&nbsp;<span>未登录</span></button>
+                        <%--                        layui-btn-normal--%>
                         <hr>
                     </div>
                 </div>
                 <div class="layui-row">
                     <div class="layui-col-md-offset1 layui-col-md10">
-                        <table class="layui-hide" id="uploadLogTable" lay-filter="logFilter"></table>
+                        <table class="layui-hide" id="uploadLogTable" lay-filter="solveFilter"></table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/html" id="toolbarLog">
+<script type="text/html" id="toolbarSolve">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="LogRecard">最近提交</button>
-        <button class="layui-btn layui-btn-sm" lay-event="reLogRecard">未提交</button>
-        <button class="layui-btn layui-btn-sm" lay-event="allLogRecard">全部提交</button>
+        <button class="layui-btn layui-btn-sm" lay-event="chooseRecard">下载选中</button>
+        <button class="layui-btn layui-btn-sm" lay-event="allchooseRecard">全部下载</button>
+        <button class="layui-btn layui-btn-sm" lay-event="emailRecard">发送至邮箱</button>
+        <button class="layui-btn layui-btn-sm" lay-event="allemailRecard">全部发送至邮箱</button>
     </div>
 </script>
 <script type="text/html" id="barSolve">
-    <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="downUpload">下载文件</a>
-    <a class="layui-btn layui-btn-xs " lay-event="modUpload">修改提交</a>
-    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delUpload">删除记录</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="oneDown">单独下载</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="oneview">在线预览</a>
 </script>
+
+
 <script src="${APP_PATH}/js/jquery.min.js"></script>
 <script src="${APP_PATH}/lib/layui/layui.js"></script>
 <script src="${APP_PATH}/js/zui.min.js"></script>
@@ -209,6 +271,23 @@
         clock += ss;
         return clock;
     }
+    //格式化文件大小
+    function renderSize(value){
+        if(null==value||value===''){
+            return "0 Bytes";
+        }
+        var unitArr = ["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"];
+        var index=0;
+        var srcsize = parseFloat(value);
+        index=Math.floor(Math.log(srcsize)/Math.log(1024));
+        var size =srcsize/Math.pow(1024,index);
+        size=size.toFixed(2);//保留的小数位数
+        return size+unitArr[index];
+    }
+    $("#SolveAdmin").click(function () {
+
+alert("SDa")
+    });
 </script>
 <script>
     layui.use(['carousel', 'layer','table'], function () {
@@ -226,45 +305,93 @@
 
         var upload_log_table = table.render({
             elem: '#uploadLogTable'
-            , url: 'data/upload/log' + '?projectid=' + projectid
-            , toolbar: '#toolbarLog'
+            , url: 'data/upload/solve' + '?projectid=' + projectid
+            , toolbar: '#toolbarSolve'
             , title: '用户数据表'
+            // , skin: 'line'
+            , even: true
             , cols: [[
-                {field: 'uploadId', title: '提交ID', width: '10%',align:"center", sort: true}
+                {type: 'checkbox', width: '5%',align:"center"}
+                , {field: 'fileId', title: '文件ID', width: '7%',align:"center", sort: true}
                 , {field: 'gNumber', title: '编号', width: '15%',align:"center", sort: true}
-                , {field: 'gName', title: '姓名', width: '10%'}
-                , {field: 'uploadTime', title: '提交时间', width: '20%',align:"center", sort: true,
+                , {field: 'gName', title: '姓名', width: '8%'}
+                , {field: 'fileCreate', title: '提交时间', width: '20%',align:"center", sort: true,
                     templet: function (d) {
-                        return  currentTimeChangeStr(d.uploadTime);
+                        return  currentTimeChangeStr(d.fileCreate);
                     }
                 }
-                , {field: 'uploadIp', title: '提交地址',align:"center", width: '13%'}
-                , {field: 'uploadStatus', title: '处理结果',align:"center", width: '12%',
+                , {field: 'fileName', title: '文件名', width: '18%'}
+                , {field: 'fileSize', title: '文件大小',align:"center", width: '12%',
                     templet: function (d) {
-                        return  ' <span class="layui-badge layui-bg-blue">正常提交</span>';
+                        return  renderSize(d.fileSize);
+                        // return  ' <span class="layui-badge layui-bg-blue">正常提交</span>';
                     }
                 }
-                , { fixed: 'right',title: '操作', toolbar: '#barSolve'}
+                , { fixed: 'right',title: '操作', toolbar: '#barSolve',align:"center"}
             ]]
             , page: {
                 limit:9
                 ,limits:[9, 20, 30, 40, 50]
             }
         });
-        table.on('tool(logFilter)', function (obj) {
-            showMsg("权限不足！", "danger");
+        table.on('tool(solveFilter)', function (obj) {
+            //未登录
+            if(loginflag.flag !== "-1"){
+                showMsg("权限不足！请先登录！", "danger");
+            }else{
+                var data = obj.data;
+                console.log(obj)
+                if(obj.event === 'oneDown'){
+                //    单独下载
+                    $.ajax({
+                        url:"solve/one/down"
+                        , type:"post"
+                        , data:{
+                            "projectid":projectid,
+                            "fileid":data.fileId
+                        }
+                        , success:function (re) {
+                            console.log(re);
+                        }
+                    });
+                } else if(obj.event === 'oneView'){
+                //    在线预览
+                    showMsg("敬请期待", "info");
+                    //     $.ajax({
+                //         url:"solve/one/view"
+                //         , type:"post"
+                //         , data:{
+                //             "projectid":projectid,
+                //             "fileid":data.fileId
+                //         }
+                //         , success:function (re) {
+                //             console.log(re);
+                //         }
+                //     });
+                }
+            }
         });
-        table.on('toolbar(logFilter)', function (obj) {
-            switch (obj.event) {
-                case 'LogRecard':
-                    showMsg("权限不足！", "danger");
-                    break;
-                case 'reLogRecard':
-                    showMsg("权限不足！", "danger");
-                    break;
-                case 'allLogRecard':
-                    showMsg("权限不足！", "danger");
-                    break;
+        table.on('toolbar(solveFilter)', function (obj) {
+            //未登录
+            if(loginflag.flag !== "-1"){
+                showMsg("权限不足！请先登录！", "danger");
+            }else {
+                var checkStatus = table.checkStatus(obj.config.id);
+                console.log(checkStatus);
+                switch (obj.event) {
+                    case 'chooseRecard':
+                        //下载选中
+                        break;
+                    case 'emailRecard':
+                        //发送至邮箱
+                        break;
+                    case 'allemailRecard':
+                        //全部发送至邮箱
+                        break;
+                    case 'allchooseRecard':
+                        //全部下载
+                        break;
+                }
             }
         });
     });

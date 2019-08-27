@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.rmi.server.InactiveGroupException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -91,6 +92,14 @@ public class UserController {
             return UserMsg.fail();
         }
 
+    }
+    @RequestMapping(value = "/get/user",method = RequestMethod.GET)
+    @ResponseBody
+    public UserMsg getUser(
+            @RequestParam("yisooid") Integer yisooid
+    ) {
+        User user= userService.getUserByYisoo(yisooid);
+        return UserMsg.success(user);
     }
 //    注册账号
     @RequestMapping(value = "/user/reg",method = RequestMethod.POST)

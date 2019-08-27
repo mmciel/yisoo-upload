@@ -1,11 +1,11 @@
 package com.yisoo.bean;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 public class FileInfo {
     private Integer fileId;
+
+    private Integer gId;
 
     private Integer filePerm;
 
@@ -18,7 +18,7 @@ public class FileInfo {
     private String fileParent;
 
     private Double fileSize;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
     private Date fileCreate;
 
     private String fileSuffix;
@@ -29,6 +29,14 @@ public class FileInfo {
 
     public void setFileId(Integer fileId) {
         this.fileId = fileId;
+    }
+
+    public Integer getgId() {
+        return gId;
+    }
+
+    public void setgId(Integer gId) {
+        this.gId = gId;
     }
 
     public Integer getFilePerm() {

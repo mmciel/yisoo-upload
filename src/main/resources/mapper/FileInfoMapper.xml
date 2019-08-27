@@ -3,6 +3,7 @@
 <mapper namespace="com.yisoo.dao.FileInfoMapper">
   <resultMap id="BaseResultMap" type="com.yisoo.bean.FileInfo">
     <id column="file_id" jdbcType="INTEGER" property="fileId" />
+    <result column="g_id" jdbcType="INTEGER" property="gId" />
     <result column="file_perm" jdbcType="INTEGER" property="filePerm" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="file_md5" jdbcType="VARCHAR" property="fileMd5" />
@@ -71,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    file_id, file_perm, project_id, file_md5, file_name, file_parent, file_size, file_create, 
-    file_suffix
+    file_id, g_id, file_perm, project_id, file_md5, file_name, file_parent, file_size, 
+    file_create, file_suffix
   </sql>
   <select id="selectByExample" parameterType="com.yisoo.bean.FileInfoExample" resultMap="BaseResultMap">
     select
@@ -105,20 +106,23 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yisoo.bean.FileInfo">
-    insert into fileinfo (file_id, file_perm, project_id, 
-      file_md5, file_name, file_parent, 
-      file_size, file_create, file_suffix
-      )
-    values (#{fileId,jdbcType=INTEGER}, #{filePerm,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
-      #{fileMd5,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileParent,jdbcType=VARCHAR}, 
-      #{fileSize,jdbcType=DOUBLE}, #{fileCreate,jdbcType=TIMESTAMP}, #{fileSuffix,jdbcType=VARCHAR}
-      )
+    insert into fileinfo (file_id, g_id, file_perm, 
+      project_id, file_md5, file_name, 
+      file_parent, file_size, file_create, 
+      file_suffix)
+    values (#{fileId,jdbcType=INTEGER}, #{gId,jdbcType=INTEGER}, #{filePerm,jdbcType=INTEGER}, 
+      #{projectId,jdbcType=INTEGER}, #{fileMd5,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{fileParent,jdbcType=VARCHAR}, #{fileSize,jdbcType=DOUBLE}, #{fileCreate,jdbcType=TIMESTAMP}, 
+      #{fileSuffix,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yisoo.bean.FileInfo">
     insert into fileinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="fileId != null">
         file_id,
+      </if>
+      <if test="gId != null">
+        g_id,
       </if>
       <if test="filePerm != null">
         file_perm,
@@ -148,6 +152,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="fileId != null">
         #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="gId != null">
+        #{gId,jdbcType=INTEGER},
       </if>
       <if test="filePerm != null">
         #{filePerm,jdbcType=INTEGER},
@@ -187,6 +194,9 @@
       <if test="record.fileId != null">
         file_id = #{record.fileId,jdbcType=INTEGER},
       </if>
+      <if test="record.gId != null">
+        g_id = #{record.gId,jdbcType=INTEGER},
+      </if>
       <if test="record.filePerm != null">
         file_perm = #{record.filePerm,jdbcType=INTEGER},
       </if>
@@ -219,6 +229,7 @@
   <update id="updateByExample" parameterType="map">
     update fileinfo
     set file_id = #{record.fileId,jdbcType=INTEGER},
+      g_id = #{record.gId,jdbcType=INTEGER},
       file_perm = #{record.filePerm,jdbcType=INTEGER},
       project_id = #{record.projectId,jdbcType=INTEGER},
       file_md5 = #{record.fileMd5,jdbcType=VARCHAR},
@@ -234,6 +245,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.yisoo.bean.FileInfo">
     update fileinfo
     <set>
+      <if test="gId != null">
+        g_id = #{gId,jdbcType=INTEGER},
+      </if>
       <if test="filePerm != null">
         file_perm = #{filePerm,jdbcType=INTEGER},
       </if>
@@ -263,7 +277,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yisoo.bean.FileInfo">
     update fileinfo
-    set file_perm = #{filePerm,jdbcType=INTEGER},
+    set g_id = #{gId,jdbcType=INTEGER},
+      file_perm = #{filePerm,jdbcType=INTEGER},
       project_id = #{projectId,jdbcType=INTEGER},
       file_md5 = #{fileMd5,jdbcType=VARCHAR},
       file_name = #{fileName,jdbcType=VARCHAR},

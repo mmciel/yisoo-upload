@@ -29,6 +29,13 @@ public class UploadInfoService {
     public void get(Integer uploadId){
         uploadInfoMapper.selectByPrimaryKey(uploadId);
     }
+//    查询项目内所有提交记录
+    public List<UploadInfo> getByProjectid(Integer projectid){
+        UploadInfoExample example = new UploadInfoExample();
+        UploadInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andProjectIdEqualTo(projectid);
+        return uploadInfoMapper.selectByExample(example);
+    }
 //    根据file_id 与g_id查
     public UploadInfo getByOtherId(Integer fileId, Integer gId){
         UploadInfoExample example = new UploadInfoExample();
@@ -41,7 +48,7 @@ public class UploadInfoService {
     public UploadInfo checkOldUpload(Integer projectid,Integer gid){
         UploadInfoExample example = new UploadInfoExample();
         UploadInfoExample.Criteria criteria = example.createCriteria();
-        criteria.andFileIdEqualTo(projectid);
+        criteria.andProjectIdEqualTo(projectid);
         criteria.andGIdEqualTo(gid);
         List<UploadInfo> uploadInfos = uploadInfoMapper.selectByExample(example);
         if(uploadInfos.size() == 0){
@@ -51,4 +58,10 @@ public class UploadInfoService {
     }
 
 
+    public Integer countuploadInfoByProjectId(Integer projectid) {
+        UploadInfoExample example = new UploadInfoExample();
+        UploadInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andProjectIdEqualTo(projectid);
+        return (int)uploadInfoMapper.countByExample(example);
+    }
 }

@@ -6,6 +6,8 @@ import com.yisoo.dao.FileInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FileInfoService {
     @Autowired
@@ -33,5 +35,18 @@ public class FileInfoService {
         FileInfoExample.Criteria criteria = example.createCriteria();
         criteria.andFileMd5EqualTo(Md5);
         return fileInfoMapper.selectByExample(example).get(0);
+    }
+//    计算数据项
+    public Integer countfileInfoByProjectId(Integer projectid){
+        FileInfoExample example = new FileInfoExample();
+        FileInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andProjectIdEqualTo(projectid);
+        return (int)fileInfoMapper.countByExample(example);
+    }
+    public List<FileInfo> getByProjectid(Integer projectid){
+        FileInfoExample example = new FileInfoExample();
+        FileInfoExample.Criteria criteria = example.createCriteria();
+        criteria.andProjectIdEqualTo(projectid);
+        return fileInfoMapper.selectByExample(example);
     }
 }

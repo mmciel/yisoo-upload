@@ -165,6 +165,66 @@ public class FileInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andGIdIsNull() {
+            addCriterion("g_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdIsNotNull() {
+            addCriterion("g_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdEqualTo(Integer value) {
+            addCriterion("g_id =", value, "gId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdNotEqualTo(Integer value) {
+            addCriterion("g_id <>", value, "gId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdGreaterThan(Integer value) {
+            addCriterion("g_id >", value, "gId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("g_id >=", value, "gId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdLessThan(Integer value) {
+            addCriterion("g_id <", value, "gId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdLessThanOrEqualTo(Integer value) {
+            addCriterion("g_id <=", value, "gId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdIn(List<Integer> values) {
+            addCriterion("g_id in", values, "gId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdNotIn(List<Integer> values) {
+            addCriterion("g_id not in", values, "gId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdBetween(Integer value1, Integer value2) {
+            addCriterion("g_id between", value1, value2, "gId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("g_id not between", value1, value2, "gId");
+            return (Criteria) this;
+        }
+
         public Criteria andFilePermIsNull() {
             addCriterion("file_perm is null");
             return (Criteria) this;

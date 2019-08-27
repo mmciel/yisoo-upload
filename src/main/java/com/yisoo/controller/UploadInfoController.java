@@ -1,5 +1,6 @@
 package com.yisoo.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.yisoo.bean.*;
 import com.yisoo.service.*;
 import com.yisoo.util.IpAddressUtil;
@@ -19,7 +20,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class UploadInfoController {
@@ -34,6 +37,45 @@ public class UploadInfoController {
 
     @Autowired
     ProjectInfoService projectInfoService;
+
+    @RequestMapping(value = "data/upload/solve",method = RequestMethod.GET)
+    @ResponseBody
+    public UploadSolveMsg getUploadSolve(
+            @RequestParam("projectid")Integer projectid,
+            @RequestParam("page") Integer page,
+            @RequestParam("limit") Integer limit
+    ){
+        Integer temp = fileInfoService.countfileInfoByProjectId(projectid);
+        PageHelper.startPage(page, limit);
+//        根据projectid查询所有提交记录
+        List<FileInfo> fileinfos = fileInfoService.getByProjectid(projectid);
+        ArrayList<FileInfoAndGroupInfo> fileInfoAndGroupInfos = new ArrayList<>();
+        for (FileInfo item : fileinfos){
+            fileInfoAndGroupInfos.add(new FileInfoAndGroupInfo(item,
+                    groupInfoService.get(item.getgId())));
+        }
+        return UploadSolveMsg.success(fileInfoAndGroupInfos,String.valueOf(temp));
+    }
+
+    @RequestMapping(value = "data/upload/log",method = RequestMethod.GET)
+    @ResponseBody
+    public UploadLogMsg getUploadLog(
+            @RequestParam("projectid")Integer projectid,
+            @RequestParam("page") Integer page,
+            @RequestParam("limit") Integer limit
+    ){
+        Integer temp = uploadInfoService.countuploadInfoByProjectId(projectid);
+        PageHelper.startPage(page, limit);
+//        根据projectid查询所有提交记录
+        List<UploadInfo> uploadInfos = uploadInfoService.getByProjectid(projectid);
+        ArrayList<UploadInfoAndGroupInfo> uploadInfoAndGroupInfos = new ArrayList<>();
+        for (UploadInfo item : uploadInfos){
+            uploadInfoAndGroupInfos.add(new UploadInfoAndGroupInfo(item,
+                    groupInfoService.get(item.getgId())));
+        }
+        return UploadLogMsg.success(uploadInfoAndGroupInfos,String.valueOf(temp));
+    }
+
 
     @RequestMapping(value = "file/upload/check",method = RequestMethod.POST)
     @ResponseBody
@@ -115,6 +157,7 @@ public class UploadInfoController {
         fileInfo.setProjectId(projectid);
         fileInfo.setFileName(fileName);
         fileInfo.setFileParent(Path);
+        fileInfo.setgId(gid);
         fileInfo.setFileSuffix(suffix);
         fileInfo.setFileSize((double) userFile.length());
         try {

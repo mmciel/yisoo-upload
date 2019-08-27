@@ -255,9 +255,8 @@
         form.on('switch(pGroupIsClassSwitch)', function (obj) {
             var fromData = {
                 "projectId":getProjectIdByObj(obj),
-                "pGroupIsClass":obj.value === "0" ? "1" : "0"
+                "pGroupIsClass":obj.elem.checked ? "1" : "0"
             };
-            obj.value = obj.value === "0" ? "1" : "0";
             if(DynamicUpdateSwitch(fromData)){
                 layer.tips("已生效", obj.othis);
             }else{
@@ -267,9 +266,8 @@
         form.on('switch(pGroupIsNumSwitch)', function (obj) {
             var fromData = {
                 "projectId":getProjectIdByObj(obj),
-                "pGroupIsNum":obj.value === "0" ? "1" : "0"
+                "pGroupIsNum":obj.elem.checked ? "1" : "0"
             };
-            obj.value = obj.value === "0" ? "1" : "0";
             if(DynamicUpdateSwitch(fromData)){
                 layer.tips("已生效", obj.othis);
             }else{
@@ -279,9 +277,8 @@
         form.on('switch(pGroupIsNameSwitch)', function (obj) {
             var fromData = {
                 "projectId":getProjectIdByObj(obj),
-                "pGroupIsName":obj.value === "0" ? "1" : "0"
+                "pGroupIsName":obj.elem.checked ? "1" : "0"
             };
-            obj.value = obj.value === "0" ? "1" : "0";
             if(DynamicUpdateSwitch(fromData)){
                 layer.tips("已生效", obj.othis);
             }else{
@@ -291,9 +288,8 @@
         form.on('switch(pGroupIsEmailSwitch)', function (obj) {
             var fromData = {
                 "projectId":getProjectIdByObj(obj),
-                "pGroupIsEmail":obj.value === "0" ? "1" : "0"
+                "pGroupIsEmail":obj.elem.checked ? "1" : "0"
             };
-            obj.value = obj.value === "0" ? "1" : "0";
             if(DynamicUpdateSwitch(fromData)){
                 layer.tips("已生效", obj.othis);
             }else{
@@ -305,9 +301,8 @@
         form.on('checkbox(pStatusCheckbox)', function (obj) {
             var fromData = {
                 "projectId":getProjectIdByObj(obj),
-                "pStatus":obj.value === "0" ? "1" : "0"
+                "pStatus":obj.elem.checked ? "1" : "0"
             };
-            obj.value = obj.value === "0" ? "1" : "0";
             if(DynamicUpdateSwitch(fromData)){
                 layer.tips("已生效", obj.othis);
             }else{
