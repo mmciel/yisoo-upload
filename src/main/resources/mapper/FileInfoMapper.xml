@@ -12,6 +12,7 @@
     <result column="file_size" jdbcType="DOUBLE" property="fileSize" />
     <result column="file_create" jdbcType="TIMESTAMP" property="fileCreate" />
     <result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     file_id, g_id, file_perm, project_id, file_md5, file_name, file_parent, file_size, 
-    file_create, file_suffix
+    file_create, file_suffix, file_type
   </sql>
   <select id="selectByExample" parameterType="com.yisoo.bean.FileInfoExample" resultMap="BaseResultMap">
     select
@@ -109,11 +110,11 @@
     insert into fileinfo (file_id, g_id, file_perm, 
       project_id, file_md5, file_name, 
       file_parent, file_size, file_create, 
-      file_suffix)
+      file_suffix, file_type)
     values (#{fileId,jdbcType=INTEGER}, #{gId,jdbcType=INTEGER}, #{filePerm,jdbcType=INTEGER}, 
       #{projectId,jdbcType=INTEGER}, #{fileMd5,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
       #{fileParent,jdbcType=VARCHAR}, #{fileSize,jdbcType=DOUBLE}, #{fileCreate,jdbcType=TIMESTAMP}, 
-      #{fileSuffix,jdbcType=VARCHAR})
+      #{fileSuffix,jdbcType=VARCHAR}, #{fileType,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yisoo.bean.FileInfo">
     insert into fileinfo
@@ -148,6 +149,9 @@
       <if test="fileSuffix != null">
         file_suffix,
       </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="fileId != null">
@@ -179,6 +183,9 @@
       </if>
       <if test="fileSuffix != null">
         #{fileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -221,6 +228,9 @@
       <if test="record.fileSuffix != null">
         file_suffix = #{record.fileSuffix,jdbcType=VARCHAR},
       </if>
+      <if test="record.fileType != null">
+        file_type = #{record.fileType,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -237,7 +247,8 @@
       file_parent = #{record.fileParent,jdbcType=VARCHAR},
       file_size = #{record.fileSize,jdbcType=DOUBLE},
       file_create = #{record.fileCreate,jdbcType=TIMESTAMP},
-      file_suffix = #{record.fileSuffix,jdbcType=VARCHAR}
+      file_suffix = #{record.fileSuffix,jdbcType=VARCHAR},
+      file_type = #{record.fileType,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -272,6 +283,9 @@
       <if test="fileSuffix != null">
         file_suffix = #{fileSuffix,jdbcType=VARCHAR},
       </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
     </set>
     where file_id = #{fileId,jdbcType=INTEGER}
   </update>
@@ -285,7 +299,8 @@
       file_parent = #{fileParent,jdbcType=VARCHAR},
       file_size = #{fileSize,jdbcType=DOUBLE},
       file_create = #{fileCreate,jdbcType=TIMESTAMP},
-      file_suffix = #{fileSuffix,jdbcType=VARCHAR}
+      file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=INTEGER}
     where file_id = #{fileId,jdbcType=INTEGER}
   </update>
 </mapper>

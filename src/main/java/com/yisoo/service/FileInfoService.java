@@ -41,12 +41,14 @@ public class FileInfoService {
         FileInfoExample example = new FileInfoExample();
         FileInfoExample.Criteria criteria = example.createCriteria();
         criteria.andProjectIdEqualTo(projectid);
+        criteria.andFileTypeEqualTo(1);
         return (int)fileInfoMapper.countByExample(example);
     }
     public List<FileInfo> getByProjectid(Integer projectid){
         FileInfoExample example = new FileInfoExample();
         FileInfoExample.Criteria criteria = example.createCriteria();
         criteria.andProjectIdEqualTo(projectid);
+        criteria.andFileTypeEqualTo(1);
         return fileInfoMapper.selectByExample(example);
     }
 }

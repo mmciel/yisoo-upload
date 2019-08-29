@@ -162,6 +162,14 @@
       <version>4.11</version>
 <!--      <scope>test</scope>-->
     </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+    <!--发送邮件-->
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.5</version>
+    </dependency>
+
   </dependencies>
 
   <build>

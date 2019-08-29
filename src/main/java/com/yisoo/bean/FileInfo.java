@@ -1,5 +1,7 @@
 package com.yisoo.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class FileInfo {
@@ -18,10 +20,12 @@ public class FileInfo {
     private String fileParent;
 
     private Double fileSize;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date fileCreate;
 
     private String fileSuffix;
+
+    private Integer fileType;
 
     public Integer getFileId() {
         return fileId;
@@ -101,5 +105,13 @@ public class FileInfo {
 
     public void setFileSuffix(String fileSuffix) {
         this.fileSuffix = fileSuffix == null ? null : fileSuffix.trim();
+    }
+
+    public Integer getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(Integer fileType) {
+        this.fileType = fileType;
     }
 }

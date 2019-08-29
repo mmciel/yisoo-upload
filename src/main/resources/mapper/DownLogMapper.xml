@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisoo.dao.DownLogMapper">
+  <resultMap id="BaseResultMap" type="com.yisoo.bean.DownLog">
+    <id column="down_id" jdbcType="INTEGER" property="downId" />
+    <result column="d_time" jdbcType="TIMESTAMP" property="dTime" />
+    <result column="d_fileparent" jdbcType="VARCHAR" property="dFileparent" />
+    <result column="d_filename" jdbcType="VARCHAR" property="dFilename" />
+    <result column="d_type" jdbcType="VARCHAR" property="dType" />
+    <result column="d_ip" jdbcType="VARCHAR" property="dIp" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="yisooid_id" jdbcType="INTEGER" property="yisooidId" />
+    <result column="d_md5" jdbcType="VARCHAR" property="dMd5" />
+    <result column="d_hash" jdbcType="VARCHAR" property="dHash" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    down_id, d_time, d_fileparent, d_filename, d_type, d_ip, project_id, yisooid_id, 
+    d_md5, d_hash
+  </sql>
+  <select id="selectByExample" parameterType="com.yisoo.bean.DownLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from downlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from downlog
+    where down_id = #{downId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from downlog
+    where down_id = #{downId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisoo.bean.DownLogExample">
+    delete from downlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisoo.bean.DownLog">
+    insert into downlog (down_id, d_time, d_fileparent, 
+      d_filename, d_type, d_ip, 
+      project_id, yisooid_id, d_md5, 
+      d_hash)
+    values (#{downId,jdbcType=INTEGER}, #{dTime,jdbcType=TIMESTAMP}, #{dFileparent,jdbcType=VARCHAR}, 
+      #{dFilename,jdbcType=VARCHAR}, #{dType,jdbcType=VARCHAR}, #{dIp,jdbcType=VARCHAR}, 
+      #{projectId,jdbcType=INTEGER}, #{yisooidId,jdbcType=INTEGER}, #{dMd5,jdbcType=VARCHAR}, 
+      #{dHash,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisoo.bean.DownLog">
+    insert into downlog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="downId != null">
+        down_id,
+      </if>
+      <if test="dTime != null">
+        d_time,
+      </if>
+      <if test="dFileparent != null">
+        d_fileparent,
+      </if>
+      <if test="dFilename != null">
+        d_filename,
+      </if>
+      <if test="dType != null">
+        d_type,
+      </if>
+      <if test="dIp != null">
+        d_ip,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="yisooidId != null">
+        yisooid_id,
+      </if>
+      <if test="dMd5 != null">
+        d_md5,
+      </if>
+      <if test="dHash != null">
+        d_hash,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="downId != null">
+        #{downId,jdbcType=INTEGER},
+      </if>
+      <if test="dTime != null">
+        #{dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dFileparent != null">
+        #{dFileparent,jdbcType=VARCHAR},
+      </if>
+      <if test="dFilename != null">
+        #{dFilename,jdbcType=VARCHAR},
+      </if>
+      <if test="dType != null">
+        #{dType,jdbcType=VARCHAR},
+      </if>
+      <if test="dIp != null">
+        #{dIp,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="yisooidId != null">
+        #{yisooidId,jdbcType=INTEGER},
+      </if>
+      <if test="dMd5 != null">
+        #{dMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="dHash != null">
+        #{dHash,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisoo.bean.DownLogExample" resultType="java.lang.Long">
+    select count(*) from downlog
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update downlog
+    <set>
+      <if test="record.downId != null">
+        down_id = #{record.downId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dTime != null">
+        d_time = #{record.dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dFileparent != null">
+        d_fileparent = #{record.dFileparent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dFilename != null">
+        d_filename = #{record.dFilename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dType != null">
+        d_type = #{record.dType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dIp != null">
+        d_ip = #{record.dIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.yisooidId != null">
+        yisooid_id = #{record.yisooidId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dMd5 != null">
+        d_md5 = #{record.dMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dHash != null">
+        d_hash = #{record.dHash,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update downlog
+    set down_id = #{record.downId,jdbcType=INTEGER},
+      d_time = #{record.dTime,jdbcType=TIMESTAMP},
+      d_fileparent = #{record.dFileparent,jdbcType=VARCHAR},
+      d_filename = #{record.dFilename,jdbcType=VARCHAR},
+      d_type = #{record.dType,jdbcType=VARCHAR},
+      d_ip = #{record.dIp,jdbcType=VARCHAR},
+      project_id = #{record.projectId,jdbcType=INTEGER},
+      yisooid_id = #{record.yisooidId,jdbcType=INTEGER},
+      d_md5 = #{record.dMd5,jdbcType=VARCHAR},
+      d_hash = #{record.dHash,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisoo.bean.DownLog">
+    update downlog
+    <set>
+      <if test="dTime != null">
+        d_time = #{dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dFileparent != null">
+        d_fileparent = #{dFileparent,jdbcType=VARCHAR},
+      </if>
+      <if test="dFilename != null">
+        d_filename = #{dFilename,jdbcType=VARCHAR},
+      </if>
+      <if test="dType != null">
+        d_type = #{dType,jdbcType=VARCHAR},
+      </if>
+      <if test="dIp != null">
+        d_ip = #{dIp,jdbcType=VARCHAR},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="yisooidId != null">
+        yisooid_id = #{yisooidId,jdbcType=INTEGER},
+      </if>
+      <if test="dMd5 != null">
+        d_md5 = #{dMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="dHash != null">
+        d_hash = #{dHash,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where down_id = #{downId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisoo.bean.DownLog">
+    update downlog
+    set d_time = #{dTime,jdbcType=TIMESTAMP},
+      d_fileparent = #{dFileparent,jdbcType=VARCHAR},
+      d_filename = #{dFilename,jdbcType=VARCHAR},
+      d_type = #{dType,jdbcType=VARCHAR},
+      d_ip = #{dIp,jdbcType=VARCHAR},
+      project_id = #{projectId,jdbcType=INTEGER},
+      yisooid_id = #{yisooidId,jdbcType=INTEGER},
+      d_md5 = #{dMd5,jdbcType=VARCHAR},
+      d_hash = #{dHash,jdbcType=VARCHAR}
+    where down_id = #{downId,jdbcType=INTEGER}
+  </update>
+</mapper>

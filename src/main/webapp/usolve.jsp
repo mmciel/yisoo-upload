@@ -11,26 +11,8 @@
     <link rel="stylesheet" href="${APP_PATH}/css/zui.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/style.css">
     <link rel="stylesheet" href="https://www.bootcss.com/p/buttons/css/buttons.css">
-
     <style>
-        .box {
-            width: 300px;
-            padding: 40px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #191919;
-            text-align: center;
-        }
-        .box h1 {
-            color: white;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-        .box input[type='text'],
-        .box input[type='password'] {
-            border: 0;
+        .biu{
             background: none;
             display: block;
             margin: 20px auto;
@@ -43,13 +25,11 @@
             border-radius: 24px;
             transition: 0.25s;
         }
-        .box input[type='text']:focus,
-        .box input[type='password']:focus {
+        .biu:focus {
             width: 280px;
             border-color: #2ecc71;
         }
         .submit {
-            border: 0;
             background: none;
             margin: 20px auto;
             margin-top: 0;
@@ -70,6 +50,7 @@
             border-color: #2ecc71;
         }
     </style>
+
 </head>
 <body>
 <div class="layui-carousel" id="test1">
@@ -149,7 +130,6 @@
     <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="oneview">在线预览</a>
 </script>
 
-
 <script src="${APP_PATH}/js/jquery.min.js"></script>
 <script src="${APP_PATH}/lib/layui/layui.js"></script>
 <script src="${APP_PATH}/js/zui.min.js"></script>
@@ -162,7 +142,8 @@
         flag:"-1",
         yisooid:"-1",
         userid:"-1",
-        username:"-1"
+        username:"-1",
+        email:"-1"
     };
     //页面必要数据初始化
     (function ($) {
@@ -285,10 +266,65 @@
         return size+unitArr[index];
     }
     $("#SolveAdmin").click(function () {
-
-alert("SDa")
+        if (loginflag.flag === "1"){
+            showMsg("您已经登录啦~","success");
+            return ;
+        }
+        var indexlayer = layer.open({
+            type: 1
+            ,title: false //不显示标题栏
+            ,closeBtn: false
+            ,shadeClose:true
+            ,area: ['400px', '375px']
+            ,shade: 0.7
+            ,anim: 2
+            ,resize:false
+            ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+            ,moveType: 1
+            ,content:'<div style="height: 375px; padding: 40px; width: 400px;text-align: center;  line-height: 22px; background-color: #393D49;">' +
+                '<h1 style="color: white;text-transform: uppercase;font-weight: 500;">快速登录YiSoo管理员</h1></br>' +
+                '<input type="text" id="un" class="biu" placeholder="Username" /><input type="password" id="pw" class="biu" placeholder="Password" />' +
+                '<button class="submit" id="loginbtn">一键登录</button></div>'
+        });
+        $("#loginbtn").click(function () {
+            if($("#un").val() === "" || $("#pw").val() === ""){
+                showMsg("请先输入~","warning");
+                return false;
+            }
+            $.ajax({
+                url:"user/login",
+                type:"post",
+                data:{
+                    "userid":$("#un").val(),
+                    "password":$("#pw").val(),
+                },
+                success:function (re){
+                    if(re.result === 200){
+                        // 登录成功
+                        // console.log(re);
+                        loginflag.flag = "1";
+                        loginflag.yisooid = re.yisooId;
+                        loginflag.userid = re.userId;
+                        loginflag.username = re.username;
+                        loginflag.email = re.email;
+                        $("#SolveAdmin").text(loginflag.username);
+                        $("#SolveAdmin").removeClass("layui-btn-danger");
+                        $("#SolveAdmin").removeClass("layui-btn-normal");
+                        showMsg("登录成功","success");
+                        layer.closeAll('page');
+                    }else{
+                        // 登录失败
+                        // window.location.href="#";
+                        showMsg("登录失败","danger");
+                        layer.closeAll('page');
+                    }
+                }
+            });
+        });
     });
+
 </script>
+
 <script>
     layui.use(['carousel', 'layer','table'], function () {
         var carousel = layui.carousel
@@ -336,7 +372,7 @@ alert("SDa")
         });
         table.on('tool(solveFilter)', function (obj) {
             //未登录
-            if(loginflag.flag !== "-1"){
+            if(loginflag.flag === "-1"){
                 showMsg("权限不足！请先登录！", "danger");
             }else{
                 var data = obj.data;
@@ -344,52 +380,138 @@ alert("SDa")
                 if(obj.event === 'oneDown'){
                 //    单独下载
                     $.ajax({
-                        url:"solve/one/down"
+                        url:"down/solve/one"
                         , type:"post"
                         , data:{
                             "projectid":projectid,
+                            "yisooid":loginflag.yisooid,
                             "fileid":data.fileId
                         }
+                        // ,async: false
+                        ,beforeSend: function(){
+                            layer.open({
+                                type: 3
+                            });
+                        }
                         , success:function (re) {
+                            layer.closeAll('loading');
+                            window.open(re.url);
                             console.log(re);
                         }
                     });
                 } else if(obj.event === 'oneView'){
                 //    在线预览
                     showMsg("敬请期待", "info");
-                    //     $.ajax({
-                //         url:"solve/one/view"
-                //         , type:"post"
-                //         , data:{
-                //             "projectid":projectid,
-                //             "fileid":data.fileId
-                //         }
-                //         , success:function (re) {
-                //             console.log(re);
-                //         }
-                //     });
                 }
             }
         });
         table.on('toolbar(solveFilter)', function (obj) {
             //未登录
-            if(loginflag.flag !== "-1"){
+            if(loginflag.flag === "-1"){
                 showMsg("权限不足！请先登录！", "danger");
             }else {
-                var checkStatus = table.checkStatus(obj.config.id);
-                console.log(checkStatus);
+                var checkStatus = table.checkStatus(obj.config.id).data;
+                var ids = [];
+                for(var i=0;i<checkStatus.length;i++){
+                    ids.push(checkStatus[i].fileId);
+                }
+                // console.log(ids);
                 switch (obj.event) {
                     case 'chooseRecard':
                         //下载选中
+                        $.ajax({
+                            url:"down/solve/part"
+                            , type:"post"
+                            , data:{
+                                "projectid":projectid,
+                                "yisooid":loginflag.yisooid,
+                                "ids":ids
+                            }
+                            // ,async: false
+                            ,beforeSend: function(){
+                                layer.open({
+                                    type: 3
+                                });
+                            }
+                            , success:function (re) {
+                                layer.closeAll('loading');
+                                window.open(re.url);
+                                console.log(re);
+                            }
+                        });
                         break;
                     case 'emailRecard':
                         //发送至邮箱
+                        $.ajax({
+                            url:"down/solve/part"
+                            , type:"post"
+                            , data:{
+                                "projectid":projectid,
+                                "yisooid":loginflag.yisooid,
+                                "ids":ids
+                            }
+                            // ,async: false
+                            ,beforeSend: function(){
+                                layer.open({
+                                    type: 3
+                                });
+                            }
+                            , success:function (re) {
+                                layer.closeAll('loading');
+                                // console.log(re);
+                                $.ajax({
+                                    url:"down/email?downid="+re.type+"&type=part"
+                                });
+                                showMsg("稍后请查看邮箱~","info");
+                            }
+                        });
                         break;
                     case 'allemailRecard':
                         //全部发送至邮箱
+                        $.ajax({
+                            url:"down/solve/all"
+                            , type:"post"
+                            , data:{
+                                "projectid":projectid,
+                                "yisooid":loginflag.yisooid
+                            }
+                            // ,async: false
+                            ,beforeSend: function(){
+                                layer.open({
+                                    type: 3
+                                });
+                            }
+                            , success:function (re) {
+                                layer.closeAll('loading');
+                                // console.log(re);
+                                $.ajax({
+                                    url:"down/email?downid="+re.type+"&type=part"
+                                });
+                                showMsg("稍后请查看邮箱~","info");
+                            }
+                        });
                         break;
                     case 'allchooseRecard':
                         //全部下载
+                        $.ajax({
+                            url:"down/solve/all"
+                            , type:"post"
+                            , data:{
+                                "projectid":projectid,
+                                "yisooid":loginflag.yisooid
+                            }
+                            // ,async: false
+                            ,beforeSend: function(){
+                                layer.open({
+                                    type: 3
+                                });
+                            }
+                            , success:function (re) {
+                                layer.closeAll('loading');
+                                window.open(re.url);
+                                console.log(re);
+                            }
+                        });
                         break;
                 }
             }

@@ -1,12 +1,14 @@
 package com.yisoo.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class AirLog {
     private Integer airId;
 
     private String airAdress;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date airTime;
 
     private String airFlag;

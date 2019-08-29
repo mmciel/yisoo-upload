@@ -122,11 +122,23 @@ public class UploadInfoController {
             Integer delFileId = checkResult.getFileId();
             FileInfo delFileInfo = fileInfoService.get(delFileId);
             String OldPath = delFileInfo.getFileParent();
-            String Path = OldPath.substring(0,OldPath.lastIndexOf("\\"))+"\\re-submit\\";
 
-            File NewFile = new File(Path+delFileInfo.getFileMd5()+"-"+delFileInfo.getFileName());
-            File OldFile = new File(OldPath+"\\"+delFileInfo.getFileName());
+            String Path = OldPath.substring(0,OldPath.lastIndexOf("\\"))+"\\re-submit\\";
+            //        创建目录
+            File tempDir = new File(Path);
+            if(!tempDir.exists()){
+                tempDir.mkdirs();
+            }
+            String NewFileStr = Path+delFileInfo.getFileMd5()+"+"+delFileInfo.getFileName();
+            String OldFileStr = OldPath+"\\"+delFileInfo.getFileName();
+            File NewFile = new File(NewFileStr);
+            File OldFile = new File(OldFileStr);
             boolean b = OldFile.renameTo(NewFile);
+//            去除file
+            delFileInfo.setFileParent(Path);
+            delFileInfo.setFileName(delFileInfo.getFileMd5()+"+"+delFileInfo.getFileName());
+            delFileInfo.setFileType(0);
+            fileInfoService.update(delFileInfo);
         }
 
 //        根据gid命名
@@ -159,6 +171,7 @@ public class UploadInfoController {
         fileInfo.setFileParent(Path);
         fileInfo.setgId(gid);
         fileInfo.setFileSuffix(suffix);
+        fileInfo.setFileType(1);
         fileInfo.setFileSize((double) userFile.length());
         try {
             FileInputStream fileInputStream = new FileInputStream(userFile);

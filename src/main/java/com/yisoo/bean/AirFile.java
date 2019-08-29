@@ -1,5 +1,7 @@
 package com.yisoo.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class AirFile {
@@ -12,7 +14,7 @@ public class AirFile {
     private Integer airNum;
 
     private String airPath;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date airDate;
 
     private Integer airLong;
