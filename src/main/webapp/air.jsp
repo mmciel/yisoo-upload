@@ -34,7 +34,8 @@
         }
     </style>
     <!--    引入buttons -->
-    <link rel="stylesheet" href="https://www.bootcss.com/p/buttons/css/buttons.css">
+    <link rel="stylesheet" href="${APP_PATH }/css/buttons.min.css">
+<%--    <link rel="stylesheet" href="https://www.bootcss.com/p/buttons/css/buttons.css">--%>
     <!--    文件上传样式 -->
     <link href="${APP_PATH }/css/zui.uploader.css" rel="stylesheet">
     <!-- 	自定义样式 -->

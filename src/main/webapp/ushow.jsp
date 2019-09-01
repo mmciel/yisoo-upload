@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="${APP_PATH}/lib//layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${APP_PATH}/css/zui.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/style.css">
-    <link rel="stylesheet" href="https://www.bootcss.com/p/buttons/css/buttons.css">
+    <link rel="stylesheet" href="${APP_PATH }/css/buttons.min.css">
+<%--    <link rel="stylesheet" href="https://www.bootcss.com/p/buttons/css/buttons.css">--%>
     <link rel="stylesheet" href="${APP_PATH}/css/selectFilter.css"/>
     <!--    文件上传样式 -->
     <link href="${APP_PATH}/css/zui.uploader.css" rel="stylesheet">

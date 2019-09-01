@@ -25,7 +25,7 @@
     <!--	js动画加载-->
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
     <!--    引入buttons -->
-    <link rel="stylesheet" href="https://www.bootcss.com/p/buttons/css/buttons.css">
+    <link rel="stylesheet" href="${APP_PATH }/css/buttons.min.css">
     <!-- 	自定义样式 -->
     <link href="${APP_PATH}/css/style.css" rel="stylesheet">
 </head>
