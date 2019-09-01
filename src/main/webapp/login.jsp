@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>登录</title>
+	<title>登录YiSoo</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FreeHTML5.co" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -82,6 +82,8 @@
 	<!-- Main JS -->
 	<script src="${APP_PATH}/js/main.js"></script>
 	<script>
+		var yisooid = "${sessionScope.yisooid}";
+
 			$("#submit").click(function(){
 				$.ajax({
 					url:"${APP_PATH}/user/login",

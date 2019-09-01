@@ -7,7 +7,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>YiSoo-Admin</title>
+    <title>YiSoo-后台</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <%--    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />--%>
@@ -31,7 +31,7 @@
 <!-- 顶部开始 -->
 <div class="container">
     <div class="logo">
-        <a href="./index.html">YiSoo</a></div>
+        <a href="./index.jsp">YiSoo</a></div>
     <div class="left_open">
         <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
     </div>
@@ -42,7 +42,7 @@
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
-                    <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                    <a onclick="xadmin.open('个人信息','index.jsp')">个人信息</a></dd>
                 <dd>
                     <a href="#">退出账号</a></dd>
             </dl>
@@ -90,12 +90,12 @@
                             <cite>项目控制</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('项目浏览','error.jsp')">
+                        <a onclick="xadmin.add_tab('提交管理','admin-detail.jsp')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>项目细览</cite></a>
+                            <cite>提交管理</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('项目导出','#')">
+                        <a onclick="xadmin.add_tab('项目导出','admin-export.jsp')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>项目导出</cite></a>
                     </li>
@@ -108,14 +108,22 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('提交概况','#')">
+<%--                        <a onclick="xadmin.add_tab('提交数据','admin-uploaddata.jsp')">--%>
+                        <a onclick="xadmin.add_tab('提交数据','error.jsp')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>提交概况</cite></a>
+                            <cite>提交数据</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('提交统计','#')">
+<%--                        <a onclick="xadmin.add_tab('文件数据','admin-filedata.jsp')">--%>
+                        <a onclick="xadmin.add_tab('文件数据','error.jsp')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>提交统计</cite></a>
+                            <cite>文件数据</cite></a>
+                    </li>
+                    <li>
+<%--                        <a onclick="xadmin.add_tab('用户数据','admin-userdata.jsp')">--%>
+                        <a onclick="xadmin.add_tab('用户数据','error.jsp')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>用户数据</cite></a>
                     </li>
                 </ul>
             </li>
@@ -151,7 +159,7 @@
         </div>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='./admin-welcome.jsp' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='./admin-projectinfo.jsp' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
         </div>
         <div id="tab_show"></div>

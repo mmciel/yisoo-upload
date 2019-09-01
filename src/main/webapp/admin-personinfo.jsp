@@ -169,8 +169,32 @@
 
         //监听提交
         form.on('submit(submit-person-modify)', function(data){
-            console.log(JSON.stringify(data.field));
-            var TempData = JSON.stringify(data.field);
+            var temp = data.field;
+            console.log(temp)
+            $.ajax({
+                url:"user/update",
+                type:"post",
+                data:{
+                    "yisooid":yisooid,
+                    "username":temp.username,
+                    "email":temp.email,
+                    "userphone":temp.phone
+                },
+                success:function (re) {
+                    if(re.result === 400){
+                        layer.msg(re.message, {
+                            time: 20000, //20s后自动关闭
+                            btn: ['好的']
+                        });
+                    }else{
+                        layer.msg(re.message, {
+                            time: 1500,
+                            btn: ['好的']
+                        });
+                        // window.location.reload();
+                    }
+                }
+            });
             return false;
         });
 
@@ -183,7 +207,7 @@
             ,"email": userObject.email
             ,"phone":userObject.userPhone
             ,"param": false //开关状态
-        })
+        });
 
         //监听提交
         form.on('submit(submit-person-password-modify)', function(data){

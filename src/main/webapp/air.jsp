@@ -15,7 +15,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>YiSoo</title>
+    <title>YiSoo空投</title>
     <!--    引入zui-->
     <link rel="stylesheet" href="${APP_PATH }/css/zui.min.css">
     <!--	引入字体-->
@@ -56,18 +56,18 @@
                         <span class="icon-bar"></span>
                     </button>
                     <!-- logo -->
-                    <a class="navbar-brand navbar-brand-text" href="#">YISOO</a>
+                    <a class="navbar-brand navbar-brand-text" href="index.jsp">YISOO</a>
                 </div>
                 <!-- 导航项目 -->
                 <div class="collapse navbar-collapse navbar-collapse-example">
                     <!-- 一般导航项目 -->
                     <ul class="nav navbar-nav nav-secondary navbar-brand-text-sm">
-                        <li><a href="#">主页</a></li>
-                        <li><a href="your/nice/url">文件采集</a></li>
-                        <li><a class="active" href="./air.jsp">文件空投</a></li>
-                        <li><a href="your/nice/url">系统更新</a></li>
-                        <li><a href="your/nice/url">开源项目</a></li>
-                        <li><a href="your/nice/url">关于YiSoo</a></li>
+                        <li class="active"><a href="index.jsp">主页</a></li>
+                        <li><a href="admin.jsp">文件采集</a></li>
+                        <li><a href="#">文件空投</a></li>
+                        <li><a href="update.jsp">系统更新</a></li>
+                        <li><a href="https://github.com/mmciel/yisoo-upload">开源项目</a></li>
+                        <li><a href="about.jsp">关于YiSoo</a></li>
                     </ul>
                     <!-- 右侧的导航项目 -->
                     <!-- <ul class="nav navbar-nav nav-pills navbar-right">

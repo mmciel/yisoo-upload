@@ -6,6 +6,7 @@ import com.yisoo.service.*;
 import com.yisoo.util.IpAddressUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.poi.ss.formula.functions.T;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,20 @@ public class UploadInfoController {
 
     @Autowired
     ProjectInfoService projectInfoService;
-
+    @RequestMapping(value = "count/upload",method = RequestMethod.GET)
+    @ResponseBody
+    public DetailMsg countUpload(
+            @RequestParam("projectid")Integer projectid
+    ){
+        Integer succ = fileInfoService.countfileInfoByProjectId(projectid);
+        Integer groupId = projectInfoService.getProjectInfoByKey(projectid).getpGroupId();
+        Integer totalNum = groupInfoService.countGrouPInfo(groupId);
+        DetailMsg detailMsg = new DetailMsg();
+        detailMsg.setResult("200");
+        detailMsg.setMessage("success");
+        detailMsg.setProgress(String.valueOf(succ)+"/"+String.valueOf(totalNum));
+        return  detailMsg;
+    }
     @RequestMapping(value = "data/upload/solve",method = RequestMethod.GET)
     @ResponseBody
     public UploadSolveMsg getUploadSolve(

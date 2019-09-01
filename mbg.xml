@@ -45,7 +45,8 @@
 <!--        <table tableName="groupdata" domainObjectName="GroupData"/>-->
 <!--        <table tableName="groupinfo" domainObjectName="GroupInfo"/>-->
 <!--        <table tableName="fileinfo" domainObjectName="FileInfo"/>-->
-        <table tableName="downlog" domainObjectName="DownLog"/>
+<!--        <table tableName="downlog" domainObjectName="DownLog"/>-->
+        <table tableName="viewinfo" domainObjectName="ViewInfo"/>
 <!--        <table tableName="projectinfo" domainObjectName="ProjectInfo"/>-->
 
     </context>

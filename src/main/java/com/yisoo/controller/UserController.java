@@ -20,6 +20,25 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @RequestMapping(value = "/user/update",method = RequestMethod.POST)
+    @ResponseBody
+    public UserMsg userUpdate(
+            @RequestParam("yisooid")Integer yisooid,
+            @RequestParam("username")String username,
+            @RequestParam("email")String email,
+            @RequestParam("userphone")String userphone
+            ){
+        User user = new User();
+        user.setYisooId(yisooid);
+        user.setUserPhone(userphone);
+        user.setEmail(email);
+        user.setUsername(username);
+        System.out.println(user);
+        userService.updateUser(user);
+        return  UserMsg.success(user);
+    }
+
+
 //    登录校验
     @RequestMapping(value = "/user/login",method = RequestMethod.POST)
     @ResponseBody
@@ -40,6 +59,8 @@ public class UserController {
 //            存入session
             request.getSession().setAttribute("yisooid",user.getYisooId());
             request.getSession().setAttribute("userid",user.getUserId());
+            request.getSession().setAttribute("username",user.getUsername());
+            request.getSession().setAttribute("email",user.getEmail());
             return UserMsg.success(user);
         }
         else{

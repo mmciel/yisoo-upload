@@ -105,12 +105,17 @@ public class GroupDataController {
 //上传名单文件
     @RequestMapping(value = "group/upload/file",method = RequestMethod.POST)
     @ResponseBody
-    public GroupMsg uploadFile(MultipartFile file, HttpServletRequest request) throws IOException {
+    public GroupMsg uploadFile(
+            @RequestParam("file")MultipartFile file,
+            HttpServletRequest request) throws IOException {
         String path = request.getSession().getServletContext().getRealPath("group-files");
         String fileName = (new Date()).getTime() +"+"+file.getOriginalFilename();
         String filepath = path + "\\" + fileName;
         File temp = new File(path,fileName);
-
+        File userFile = new File(path);
+        if(!userFile.exists()){
+            userFile.mkdirs();
+        }
         file.transferTo(temp);
 
 

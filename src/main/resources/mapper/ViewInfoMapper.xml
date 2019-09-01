@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisoo.dao.ViewInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yisoo.bean.ViewInfo">
+    <id column="view_id" jdbcType="INTEGER" property="viewId" />
+    <result column="file_id" jdbcType="INTEGER" property="fileId" />
+    <result column="pdf_name" jdbcType="VARCHAR" property="pdfName" />
+    <result column="v_time" jdbcType="TIMESTAMP" property="vTime" />
+    <result column="v_ip" jdbcType="VARCHAR" property="vIp" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    view_id, file_id, pdf_name, v_time, v_ip
+  </sql>
+  <select id="selectByExample" parameterType="com.yisoo.bean.ViewInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from viewinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from viewinfo
+    where view_id = #{viewId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from viewinfo
+    where view_id = #{viewId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yisoo.bean.ViewInfoExample">
+    delete from viewinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yisoo.bean.ViewInfo">
+    insert into viewinfo (view_id, file_id, pdf_name, 
+      v_time, v_ip)
+    values (#{viewId,jdbcType=INTEGER}, #{fileId,jdbcType=INTEGER}, #{pdfName,jdbcType=VARCHAR}, 
+      #{vTime,jdbcType=TIMESTAMP}, #{vIp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yisoo.bean.ViewInfo">
+    insert into viewinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="viewId != null">
+        view_id,
+      </if>
+      <if test="fileId != null">
+        file_id,
+      </if>
+      <if test="pdfName != null">
+        pdf_name,
+      </if>
+      <if test="vTime != null">
+        v_time,
+      </if>
+      <if test="vIp != null">
+        v_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="viewId != null">
+        #{viewId,jdbcType=INTEGER},
+      </if>
+      <if test="fileId != null">
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="pdfName != null">
+        #{pdfName,jdbcType=VARCHAR},
+      </if>
+      <if test="vTime != null">
+        #{vTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vIp != null">
+        #{vIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yisoo.bean.ViewInfoExample" resultType="java.lang.Long">
+    select count(*) from viewinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update viewinfo
+    <set>
+      <if test="record.viewId != null">
+        view_id = #{record.viewId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileId != null">
+        file_id = #{record.fileId,jdbcType=INTEGER},
+      </if>
+      <if test="record.pdfName != null">
+        pdf_name = #{record.pdfName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vTime != null">
+        v_time = #{record.vTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.vIp != null">
+        v_ip = #{record.vIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update viewinfo
+    set view_id = #{record.viewId,jdbcType=INTEGER},
+      file_id = #{record.fileId,jdbcType=INTEGER},
+      pdf_name = #{record.pdfName,jdbcType=VARCHAR},
+      v_time = #{record.vTime,jdbcType=TIMESTAMP},
+      v_ip = #{record.vIp,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yisoo.bean.ViewInfo">
+    update viewinfo
+    <set>
+      <if test="fileId != null">
+        file_id = #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="pdfName != null">
+        pdf_name = #{pdfName,jdbcType=VARCHAR},
+      </if>
+      <if test="vTime != null">
+        v_time = #{vTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vIp != null">
+        v_ip = #{vIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where view_id = #{viewId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yisoo.bean.ViewInfo">
+    update viewinfo
+    set file_id = #{fileId,jdbcType=INTEGER},
+      pdf_name = #{pdfName,jdbcType=VARCHAR},
+      v_time = #{vTime,jdbcType=TIMESTAMP},
+      v_ip = #{vIp,jdbcType=VARCHAR}
+    where view_id = #{viewId,jdbcType=INTEGER}
+  </update>
+</mapper>

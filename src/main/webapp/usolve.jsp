@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>提交</title>
+    <title>快捷管理</title>
     <link rel="stylesheet" href="${APP_PATH}/lib//layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${APP_PATH}/css/zui.min.css">
     <link rel="stylesheet" href="${APP_PATH}/css/style.css">
@@ -69,18 +69,18 @@
                             <span class="icon-bar"></span>
                         </button>
                         <!-- 品牌名称或logo -->
-                        <a class="navbar-brand" href="#">YiSoo</a>
+                        <a class="navbar-brand" href="index.jsp">YiSoo</a>
                     </div>
                     <!-- 导航项目 -->
                     <div class="collapse navbar-collapse navbar-collapse-example ">
                         <!-- 一般导航项目 -->
                         <ul class="nav navbar-nav nav-secondary ">
-                            <li><a href="#">主页</a></li>
+                            <li><a href="index.jsp">主页</a></li>
                             <li class="active"><a href="#">文件采集</a></li>
-                            <li><a href="#">文件空投</a></li>
-                            <li><a href="#">系统更新</a></li>
-                            <li><a href="#">开源项目</a></li>
-                            <li><a href="#">关于YiSoo</a></li>
+                            <li><a href="air.jsp">文件空投</a></li>
+                            <li><a href="update.jsp">系统更新</a></li>
+                            <li><a href="https://github.com/mmciel/yisoo-upload">开源项目</a></li>
+                            <li><a href="about.jsp">关于YiSoo</a></li>
                         </ul>
                         <ul class="nav navbar-nav nav-secondary navbar-right">
                             <li><a href="" id="btnUpload">文件上传</a></li>
@@ -127,10 +127,10 @@
 </script>
 <script type="text/html" id="barSolve">
     <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="oneDown">单独下载</a>
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="oneview">在线预览</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="oneView">在线预览</a>
 </script>
 
-<script src="${APP_PATH}/js/jquery.min.js"></script>
+<script src="${APP_PATH}/js/jquery.min.js"></script>V
 <script src="${APP_PATH}/lib/layui/layui.js"></script>
 <script src="${APP_PATH}/js/zui.min.js"></script>
 <script>
@@ -401,7 +401,8 @@
                     });
                 } else if(obj.event === 'oneView'){
                 //    在线预览
-                    showMsg("敬请期待", "info");
+                //     console.log("23123123");
+                    window.open("onlineview.jsp?fileid="+data.fileId);
                 }
             }
         });
