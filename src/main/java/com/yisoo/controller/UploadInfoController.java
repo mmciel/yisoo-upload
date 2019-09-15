@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.yisoo.bean.*;
 import com.yisoo.service.*;
 import com.yisoo.util.IpAddressUtil;
+import com.yisoo.util.PathUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.poi.ss.formula.functions.T;
 import org.omg.PortableInterceptor.INACTIVE;
@@ -137,14 +138,14 @@ public class UploadInfoController {
             FileInfo delFileInfo = fileInfoService.get(delFileId);
             String OldPath = delFileInfo.getFileParent();
 
-            String Path = OldPath.substring(0,OldPath.lastIndexOf("\\"))+"\\re-submit\\";
+            String Path = OldPath.substring(0,OldPath.lastIndexOf(PathUtil.OP))+PathUtil.OP+"re-submit"+PathUtil.OP;
             //        创建目录
             File tempDir = new File(Path);
             if(!tempDir.exists()){
                 tempDir.mkdirs();
             }
             String NewFileStr = Path+delFileInfo.getFileMd5()+"+"+delFileInfo.getFileName();
-            String OldFileStr = OldPath+"\\"+delFileInfo.getFileName();
+            String OldFileStr = OldPath+PathUtil.OP+delFileInfo.getFileName();
             File NewFile = new File(NewFileStr);
             File OldFile = new File(OldFileStr);
             boolean b = OldFile.renameTo(NewFile);
@@ -161,7 +162,7 @@ public class UploadInfoController {
         String fileName = groupInfo.getgNumber()+ "_" +groupInfo.getgName()+suffix;
 //      文件目录
         String TreePath = request.getSession().getServletContext().getRealPath("project-files");
-        String Path = TreePath+"\\"+projectInfo.getpPath();
+        String Path = TreePath+PathUtil.OP+projectInfo.getpPath();
 //        创建目录
         File tempDir = new File(Path);
         if(!tempDir.exists()){

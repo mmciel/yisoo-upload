@@ -7,6 +7,7 @@ import com.yisoo.util.DownFileStreamUtil;
 import com.yisoo.util.IpAddressUtil;
 import com.yisoo.bean.UploadMsg;
 import com.yisoo.service.AirFileService;
+import com.yisoo.util.PathUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -130,7 +131,7 @@ public class AirFileController {
     }
 
     private static AirFile FileToAirFile(String path,String fileName){
-        File file = new File(path+"\\"+fileName);
+        File file = new File(path+ PathUtil.OP+fileName);
         AirFile airFile = new AirFile();
         FileInputStream fileInputStream = null;
         try {

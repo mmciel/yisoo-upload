@@ -7,6 +7,7 @@ import com.yisoo.service.FileInfoService;
 import com.yisoo.service.ViewInfoService;
 import com.yisoo.util.IpAddressUtil;
 
+import com.yisoo.util.PathUtil;
 import com.yisoo.util.WordToPdf;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class ViewInfoController {
         Date date = new Date();
         ViewInfo viewInfo = new ViewInfo();
         if (fileInfo.getFileSuffix().equals(".doc") || fileInfo.getFileSuffix().equals(".docx")) {
-            String oldFile = fileInfo.getFileParent()+"\\"+fileInfo.getFileName();
+            String oldFile = fileInfo.getFileParent()+ PathUtil.OP+fileInfo.getFileName();
             String newFile = String.valueOf(fileInfo.getFileId())+"+"+String.valueOf(fileInfo.getgId())
                     + "+"+String.valueOf(fileInfo.getProjectId())+"+"+
                     date.getTime()+"+"+ViewInfoController.getFileNameNoEx(fileInfo.getFileName())+".pdf";
@@ -63,7 +64,7 @@ public class ViewInfoController {
 
 //            开始转换
 //            WordToPdf.doc2pdf(oldFile,sPath+"\\"+newFile);
-            WordToPdf.doc2pdf(oldFile,sPath+"\\"+newFile);
+            WordToPdf.doc2pdf(oldFile,sPath+PathUtil.OP+newFile);
 
             viewInfoService.add(viewInfo);
 //            ViewInfo byFileid = viewInfoService.getByFileid(fileid);

@@ -11,7 +11,7 @@ public class DownFileStreamUtil {
                                  String filename,
                                  HttpServletRequest request,
                                  HttpServletResponse response) throws IOException {
-        String path = request.getSession().getServletContext().getRealPath(parent)+"\\"+filename;
+        String path = request.getSession().getServletContext().getRealPath(parent)+PathUtil.OP+filename;
         File file = new File(path);
         if (!file.exists()) {
             System.out.println("您要下载的资源已被删除！！");

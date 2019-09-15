@@ -1,42 +1,51 @@
-# YISOO云文件服务
+# YISOO 云文件服务
 
-## 项目简介
+## 简介
 
-### 背景
+![主页](/temp_img/0 (1).png)
 
-本项目最开始是学习javaweb基础（serlvet）之后用于练手的，奈何想实现的功能很多，但是操作起来难度越来越大。主要是频繁的操作数据库、用户友好程度的优化、没有经验造成的频繁解耦。
+![主页](/temp_img/0 (2).png)
 
-当时用到的技术是：`servlet+jsp+bootstrap+mysql`
+![主页](/temp_img/0 (3).png)
 
-### 发展
+![主页](/temp_img/0 (4).png)
 
-后来，在学习spring框架的同时，着手重构了上面的项目（yisoo-upload-test）,规范了一些类，根据《设计模式之禅》中的多种设计模式融入了一些demo，但是效果很差，没有投入时间，所以最终还是个半成品，整个项目只能算是一个面向接口编程的demo。当时新增一个前端框架：layUI，提升了些效率。
+![主页](/temp_img/0 (5).png)
 
-暑假中，重新学习了CSS3、JavaScript高级、jquery特效部分，准备自己写前端页面，奈何志大才疏，慢慢学吧，直接拿国产ZUI作为前端的实现方式。
+![主页](/temp_img/0 (6).png)
 
-暑假中，看了springMVC与mybatis，然后掌握了maven项目，最后跟了一个ssmCRUD的Demo项目，最后刷了一遍springboot，感觉还好，就没有继续学，准备重构这个yisoo项目，然后沉淀下。所以本项目诞生。
-
-### 未来
-
-专业内前途渺茫，搞不好毕业之后就是个苦逼后端，运气好可能会全栈。当然至少从spring开始还是要回头读一遍书与源码的，所以本项目如果再重构，必定是我读了源码归来后再练手而已。
-
-
-
-## 项目实现
-
-
+## 技术实现
 
 ### 前端
 
 - jquery
+- layui
 - ZUI
+- bootstrap
 
 ### 后端
 
-- spring+springmvc+mybatis
-- mybatis逆向工程
-- maven
-- MySQL
+- spring + springmvc + mybatis
+- mysql 5.6
+- 逆向工程
+
+### 其他
+
+- maven构建
+
+## 开发环境
+
+- JAVA 1.8
+- windows 10 x64
+- idea 2019
+- tomcat 9
+- maven3.6
+
+## 部署环境
+
+- 可选 linux centos 7 
+- 可选 windows server 2008
+- 可选 docker + MySQL5.6+ tomcat9
 
 
 

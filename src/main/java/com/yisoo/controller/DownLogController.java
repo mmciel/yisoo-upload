@@ -52,7 +52,7 @@ public class DownLogController {
         ProjectInfo projectInfo = projectInfoService.getProjectInfoByKey(projectid);
         for(Integer fileid:ids){
             FileInfo fileInfo = fileInfoService.get(fileid);
-            fileList.add(new File(fileInfo.getFileParent()+"\\"+fileInfo.getFileName()));
+            fileList.add(new File(fileInfo.getFileParent()+PathUtil.OP+fileInfo.getFileName()));
             HashTemp.append(fileInfo.getFileMd5());
         }
         String HashStr = DigestUtils.md5Hex(HashTemp.toString());
@@ -77,7 +77,7 @@ public class DownLogController {
             if(!tempDir.exists()){
                 tempDir.mkdirs();
             }
-            FileOutputStream fos2 = new FileOutputStream(new File(newpath+"\\"+newfilename));
+            FileOutputStream fos2 = new FileOutputStream(new File(newpath+PathUtil.OP+newfilename));
             ZipUtils.toZip(fileList, fos2);
             fos2.close();
 
@@ -88,7 +88,7 @@ public class DownLogController {
             downLog.setdTime(new Date());
             downLog.setdHash(HashStr);
 
-            FileInputStream fis = new FileInputStream(new File(newpath + "\\" + newfilename));
+            FileInputStream fis = new FileInputStream(new File(newpath + PathUtil.OP + newfilename));
             downLog.setdMd5(DigestUtils.md5Hex(fis));
             fis.close();
 
@@ -136,7 +136,7 @@ public class DownLogController {
             downLog.setdIp(IpAddressUtil.getIpAddress(request));
             downLog.setdTime(new Date());
             downLog.setdHash(HashStr);
-            String oldpath = request.getSession().getServletContext().getRealPath("project-files")+"\\"+projectInfo.getpPath();
+            String oldpath = request.getSession().getServletContext().getRealPath("project-files")+PathUtil.OP+projectInfo.getpPath();
             String newpath = request.getSession().getServletContext().getRealPath("down-files");
             //        创建目录
             File tempDir = new File(newpath);
@@ -144,13 +144,13 @@ public class DownLogController {
                 tempDir.mkdirs();
             }
             String newfilename = projectInfo.getpTitle()+"-"+new Date().getTime()+".zip";
-            FileOutputStream fos1 = new FileOutputStream(new File(newpath + "\\" +newfilename));
+            FileOutputStream fos1 = new FileOutputStream(new File(newpath + PathUtil.OP +newfilename));
             ZipUtils.toZip(oldpath, fos1,true);
             fos1.close();
 
             downLog.setdFileparent(newpath);
             downLog.setdFilename(newfilename);
-            FileInputStream fis = new FileInputStream(new File(newpath + "\\" + newfilename));
+            FileInputStream fis = new FileInputStream(new File(newpath + PathUtil.OP + newfilename));
             downLog.setdMd5(DigestUtils.md5Hex(fis));
             fis.close();
 
@@ -206,7 +206,7 @@ public class DownLogController {
         if(type == 1){//单独下载
             Integer projectId = downLog.getProjectId();
             ProjectInfo projectInfo = projectInfoService.getProjectInfoByKey(projectId);
-            DownFileStreamUtil.actionFileDown("project-files\\"+projectInfo.getpPath(),downLog.getdFilename(),request,response);
+            DownFileStreamUtil.actionFileDown("project-files"+ PathUtil.OP +projectInfo.getpPath(),downLog.getdFilename(),request,response);
         }else if(type == 2){//全部下载
             DownFileStreamUtil.actionFileDown("down-files",downLog.getdFilename(),request,response);
         }else if(type == 3){
@@ -223,7 +223,7 @@ public class DownLogController {
         ProjectInfo projectInfo = projectInfoService.getProjectInfoByKey(projectId);
         User user = userService.getUserByYisoo(downLog.getYisooidId());
         String eTitle = "YiSoo文件-"+projectInfo.getpTitle()+"-"+type;
-        String filepath = downLog.getdFileparent()+"\\"+downLog.getdFilename();
+        String filepath = downLog.getdFileparent()+PathUtil.OP+downLog.getdFilename();
         MailUtil mailUtil = new MailUtil();
         Session session = mailUtil.session;
         // 3. 创建一封邮件

@@ -8,6 +8,7 @@ import com.yisoo.service.GroupDataService;
 import com.yisoo.service.GroupInfoService;
 import com.yisoo.util.DownFileStreamUtil;
 import com.yisoo.util.ExcelParseUtil;
+import com.yisoo.util.PathUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -110,7 +111,7 @@ public class GroupDataController {
             HttpServletRequest request) throws IOException {
         String path = request.getSession().getServletContext().getRealPath("group-files");
         String fileName = (new Date()).getTime() +"+"+file.getOriginalFilename();
-        String filepath = path + "\\" + fileName;
+        String filepath = path + PathUtil.OP + fileName;
         File temp = new File(path,fileName);
         File userFile = new File(path);
         if(!userFile.exists()){
@@ -167,7 +168,7 @@ public class GroupDataController {
             filename = "example.xlsx";
         }
 
-        path = request.getSession().getServletContext().getRealPath("group-files\\example")+"\\"+filename;
+        path = request.getSession().getServletContext().getRealPath("group-files"+PathUtil.OP+"example")+PathUtil.OP+filename;
         File file = new File(path);
         if (!file.exists()) {
             System.out.println("您要下载的资源已被删除！！");
@@ -184,7 +185,7 @@ public class GroupDataController {
     @RequestMapping(value = "group/down/example/action",method = RequestMethod.GET)
     @ResponseBody
     public void downExampleAction(@RequestParam("filename")String filename,  HttpServletRequest request, HttpServletResponse response) throws IOException {
-        DownFileStreamUtil.actionFileDown("group-files\\example",filename,request,response);
+        DownFileStreamUtil.actionFileDown("group-files"+PathUtil.OP+"example",filename,request,response);
     }
 }
 
