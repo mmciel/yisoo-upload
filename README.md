@@ -2,17 +2,17 @@
 
 ## 简介
 
-![主页](/temp_img/0 (1).png)
+![主页](https://github.com/mmciel/yisoo-upload/blob/master/temp_img/0%20(1).png?raw=true)
 
-![主页](/temp_img/0 (2).png)
+![主页](https://github.com/mmciel/yisoo-upload/blob/master/temp_img/0%20(2).png?raw=true)
 
-![主页](/temp_img/0 (3).png)
+![主页](https://github.com/mmciel/yisoo-upload/blob/master/temp_img/0%20(3).png?raw=true)
 
-![主页](/temp_img/0 (4).png)
+![主页](https://github.com/mmciel/yisoo-upload/blob/master/temp_img/0%20(4).png?raw=true)
 
-![主页](/temp_img/0 (5).png)
+![主页](https://github.com/mmciel/yisoo-upload/blob/master/temp_img/0%20(5).png?raw=true)
 
-![主页](/temp_img/0 (6).png)
+![主页](https://github.com/mmciel/yisoo-upload/blob/master/temp_img/0%20(6).png?raw=true)
 
 ## 技术实现
 
